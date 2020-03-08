@@ -22,7 +22,7 @@ struct ExamListView: View {
     var body: some View {
         List {
             ForEach(subject.examsArray, id: \.self) { exam in
-                Text(exam.title ?? "Unknown")
+                ExamCellView(exam: exam)
             }
             .onDelete(perform: removeClass)
             Text(self.refreshing ? "" : "")

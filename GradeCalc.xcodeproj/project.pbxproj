@@ -27,6 +27,9 @@
 		377D7DEF2415A66400CD6582 /* ExamListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DEE2415A66400CD6582 /* ExamListView.swift */; };
 		377D7DF12415A75D00CD6582 /* ExamAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DF02415A75D00CD6582 /* ExamAddView.swift */; };
 		377D7DF32415B6BA00CD6582 /* GradeAverageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DF22415B6BA00CD6582 /* GradeAverageView.swift */; };
+		377D7DF52415BB3D00CD6582 /* SemesterCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DF42415BB3D00CD6582 /* SemesterCellView.swift */; };
+		377D7DF72415BC2600CD6582 /* SubjectCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DF62415BC2600CD6582 /* SubjectCellView.swift */; };
+		377D7DF92415BD7F00CD6582 /* ExamCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DF82415BD7F00CD6582 /* ExamCellView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +55,9 @@
 		377D7DEE2415A66400CD6582 /* ExamListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamListView.swift; sourceTree = "<group>"; };
 		377D7DF02415A75D00CD6582 /* ExamAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamAddView.swift; sourceTree = "<group>"; };
 		377D7DF22415B6BA00CD6582 /* GradeAverageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeAverageView.swift; sourceTree = "<group>"; };
+		377D7DF42415BB3D00CD6582 /* SemesterCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemesterCellView.swift; sourceTree = "<group>"; };
+		377D7DF62415BC2600CD6582 /* SubjectCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectCellView.swift; sourceTree = "<group>"; };
+		377D7DF82415BD7F00CD6582 /* ExamCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamCellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +135,9 @@
 				377D7DEE2415A66400CD6582 /* ExamListView.swift */,
 				377D7DF02415A75D00CD6582 /* ExamAddView.swift */,
 				377D7DF22415B6BA00CD6582 /* GradeAverageView.swift */,
+				377D7DF42415BB3D00CD6582 /* SemesterCellView.swift */,
+				377D7DF62415BC2600CD6582 /* SubjectCellView.swift */,
+				377D7DF82415BD7F00CD6582 /* ExamCellView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -216,11 +225,14 @@
 				377D7DE12415A00D00CD6582 /* Subject+CoreDataClass.swift in Sources */,
 				377D7DE32415A00D00CD6582 /* Semester+CoreDataClass.swift in Sources */,
 				377D7DF12415A75D00CD6582 /* ExamAddView.swift in Sources */,
+				377D7DF52415BB3D00CD6582 /* SemesterCellView.swift in Sources */,
 				377D7DF32415B6BA00CD6582 /* GradeAverageView.swift in Sources */,
 				377D7DE72415A03E00CD6582 /* SemesterListView.swift in Sources */,
+				377D7DF72415BC2600CD6582 /* SubjectCellView.swift in Sources */,
 				377D7DE02415A00D00CD6582 /* Exam+CoreDataProperties.swift in Sources */,
 				377D7DEB2415A48E00CD6582 /* SubjectListView.swift in Sources */,
 				377D7DC42415959000CD6582 /* SceneDelegate.swift in Sources */,
+				377D7DF92415BD7F00CD6582 /* ExamCellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

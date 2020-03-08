@@ -23,7 +23,7 @@ struct SubjectListView: View {
         List {
             ForEach(semester.subjectsArray, id: \.self) { subject in
                 NavigationLink(destination: ExamListView(subject: subject)) {
-                    Text(subject.title ?? "Unknown")
+                    SubjectCellView(subject: subject)
                 }
             }
             .onDelete(perform: removeClass)

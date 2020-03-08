@@ -26,7 +26,7 @@ struct SemesterListView: View {
                 List {
                     ForEach(self.semesters) { semester in
                         NavigationLink(destination: SubjectListView(semester: semester)) {
-                            Text(semester.title ?? "Unknown")
+                            SemesterCellView(semester: semester)
                         }
                         .onReceive(self.didSave) { _ in
                             self.refreshing.toggle()
