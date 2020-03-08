@@ -14,6 +14,16 @@
 		377D7DCB2415959200CD6582 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 377D7DCA2415959200CD6582 /* Assets.xcassets */; };
 		377D7DCE2415959200CD6582 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 377D7DCD2415959200CD6582 /* Preview Assets.xcassets */; };
 		377D7DD12415959200CD6582 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 377D7DCF2415959200CD6582 /* LaunchScreen.storyboard */; };
+		377D7DDF2415A00D00CD6582 /* Exam+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DD92415A00D00CD6582 /* Exam+CoreDataClass.swift */; };
+		377D7DE02415A00D00CD6582 /* Exam+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DDA2415A00D00CD6582 /* Exam+CoreDataProperties.swift */; };
+		377D7DE12415A00D00CD6582 /* Subject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DDB2415A00D00CD6582 /* Subject+CoreDataClass.swift */; };
+		377D7DE22415A00D00CD6582 /* Subject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DDC2415A00D00CD6582 /* Subject+CoreDataProperties.swift */; };
+		377D7DE32415A00D00CD6582 /* Semester+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DDD2415A00D00CD6582 /* Semester+CoreDataClass.swift */; };
+		377D7DE42415A00D00CD6582 /* Semester+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DDE2415A00D00CD6582 /* Semester+CoreDataProperties.swift */; };
+		377D7DE72415A03E00CD6582 /* SemesterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DE62415A03E00CD6582 /* SemesterListView.swift */; };
+		377D7DE92415A2B400CD6582 /* SemesterAddVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DE82415A2B400CD6582 /* SemesterAddVIew.swift */; };
+		377D7DEB2415A48E00CD6582 /* SubjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DEA2415A48E00CD6582 /* SubjectListView.swift */; };
+		377D7DED2415A59800CD6582 /* SubjectAddVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DEC2415A59800CD6582 /* SubjectAddVIew.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +36,16 @@
 		377D7DCD2415959200CD6582 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		377D7DD02415959200CD6582 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		377D7DD22415959200CD6582 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		377D7DD92415A00D00CD6582 /* Exam+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exam+CoreDataClass.swift"; sourceTree = "<group>"; };
+		377D7DDA2415A00D00CD6582 /* Exam+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exam+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		377D7DDB2415A00D00CD6582 /* Subject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subject+CoreDataClass.swift"; sourceTree = "<group>"; };
+		377D7DDC2415A00D00CD6582 /* Subject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subject+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		377D7DDD2415A00D00CD6582 /* Semester+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Semester+CoreDataClass.swift"; sourceTree = "<group>"; };
+		377D7DDE2415A00D00CD6582 /* Semester+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Semester+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		377D7DE62415A03E00CD6582 /* SemesterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemesterListView.swift; sourceTree = "<group>"; };
+		377D7DE82415A2B400CD6582 /* SemesterAddVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemesterAddVIew.swift; sourceTree = "<group>"; };
+		377D7DEA2415A48E00CD6582 /* SubjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectListView.swift; sourceTree = "<group>"; };
+		377D7DEC2415A59800CD6582 /* SubjectAddVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectAddVIew.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +78,8 @@
 		377D7DC02415959000CD6582 /* GradeCalc */ = {
 			isa = PBXGroup;
 			children = (
+				377D7DE52415A02000CD6582 /* Views */,
+				377D7DD824159FF000CD6582 /* CoreData */,
 				377D7DC12415959000CD6582 /* AppDelegate.swift */,
 				377D7DC32415959000CD6582 /* SceneDelegate.swift */,
 				377D7DC82415959000CD6582 /* ContentView.swift */,
@@ -76,6 +98,30 @@
 				377D7DCD2415959200CD6582 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		377D7DD824159FF000CD6582 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				377D7DD92415A00D00CD6582 /* Exam+CoreDataClass.swift */,
+				377D7DDA2415A00D00CD6582 /* Exam+CoreDataProperties.swift */,
+				377D7DDB2415A00D00CD6582 /* Subject+CoreDataClass.swift */,
+				377D7DDC2415A00D00CD6582 /* Subject+CoreDataProperties.swift */,
+				377D7DDD2415A00D00CD6582 /* Semester+CoreDataClass.swift */,
+				377D7DDE2415A00D00CD6582 /* Semester+CoreDataProperties.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		377D7DE52415A02000CD6582 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				377D7DE62415A03E00CD6582 /* SemesterListView.swift */,
+				377D7DE82415A2B400CD6582 /* SemesterAddVIew.swift */,
+				377D7DEA2415A48E00CD6582 /* SubjectListView.swift */,
+				377D7DEC2415A59800CD6582 /* SubjectAddVIew.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,9 +195,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				377D7DE92415A2B400CD6582 /* SemesterAddVIew.swift in Sources */,
+				377D7DED2415A59800CD6582 /* SubjectAddVIew.swift in Sources */,
 				377D7DC22415959000CD6582 /* AppDelegate.swift in Sources */,
+				377D7DE42415A00D00CD6582 /* Semester+CoreDataProperties.swift in Sources */,
 				377D7DC72415959000CD6582 /* GradeCalc.xcdatamodeld in Sources */,
+				377D7DDF2415A00D00CD6582 /* Exam+CoreDataClass.swift in Sources */,
 				377D7DC92415959000CD6582 /* ContentView.swift in Sources */,
+				377D7DE22415A00D00CD6582 /* Subject+CoreDataProperties.swift in Sources */,
+				377D7DE12415A00D00CD6582 /* Subject+CoreDataClass.swift in Sources */,
+				377D7DE32415A00D00CD6582 /* Semester+CoreDataClass.swift in Sources */,
+				377D7DE72415A03E00CD6582 /* SemesterListView.swift in Sources */,
+				377D7DE02415A00D00CD6582 /* Exam+CoreDataProperties.swift in Sources */,
+				377D7DEB2415A48E00CD6582 /* SubjectListView.swift in Sources */,
 				377D7DC42415959000CD6582 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
