@@ -17,16 +17,26 @@ struct SemesterListView: View {
     
     @State var addSheetVisible = false
     
+    @State private var refreshing = false
+    private var didSave =  NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
+    
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(self.semesters) { semester in
-                    NavigationLink(destination: SubjectListView(semester: semester)) {
-                        Text(semester.title ?? "Unknown")
+        let average = getAverage(semester: semesters)
+        return NavigationView {
+            VStack {
+                List {
+                    ForEach(self.semesters) { semester in
+                        NavigationLink(destination: SubjectListView(semester: semester)) {
+                            Text(semester.title ?? "Unknown")
+                        }
+                        .onReceive(self.didSave) { _ in
+                            self.refreshing.toggle()
+                        }
                     }
-                        
+                    .onDelete(perform: removeSemester)
                 }
-                .onDelete(perform: removeSemester)
+                Text(self.refreshing ? "" : "")
+                Text(average > 0.0 ? String(format: "Durchschnitt: %.2f", average) : "Noch keine Noten eingetragen")
             }
             
             .navigationBarItems(leading: EditButton(), trailing:
@@ -53,5 +63,22 @@ struct SemesterListView: View {
         } catch {
             print(error)
         }
+    }
+    
+    func getAverage(semester: FetchedResults<Semester>) -> Float {
+        var sum = Float(0)
+        var count = 0
+        for semester in semesters {
+            for subject in semester.subjectsArray {
+                for exam in subject.examsArray {
+                    sum += exam.grade
+                    count += 1
+                }
+            }
+        }
+        if (count > 0) {
+            return sum / Float(count)
+        }
+        return 0.0
     }
 }

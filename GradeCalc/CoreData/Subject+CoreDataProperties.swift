@@ -21,6 +21,13 @@ extension Subject {
     @NSManaged public var weight: Float
     @NSManaged public var exams: NSSet?
     @NSManaged public var semester: Semester?
+    
+    public var examsArray: [Exam] {
+        let set = exams as? Set<Exam> ?? []
+        return set.sorted {
+            $0.title! < $1.title!
+        }
+    }
 
 }
 

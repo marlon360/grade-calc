@@ -1,5 +1,5 @@
 //
-//  SubjectListView.swift
+//  ExamListView.swift
 //  GradeCalc
 //
 //  Created by Marlon Lückert on 08.03.20.
@@ -9,9 +9,9 @@
 import Foundation
 import SwiftUI
 
-struct SubjectListView: View {
+struct ExamListView: View {
     
-    @State var semester: Semester
+    @State var subject: Subject
     
     @State private var refreshing = false
         
@@ -21,10 +21,8 @@ struct SubjectListView: View {
     
     var body: some View {
         List {
-            ForEach(semester.subjectsArray, id: \.self) { subject in
-                NavigationLink(destination: ExamListView(subject: subject)) {
-                    Text(subject.title ?? "Unknown")
-                }
+            ForEach(subject.examsArray, id: \.self) { exam in
+                Text(exam.title ?? "Unknown")
             }
             .onDelete(perform: removeClass)
             Text(self.refreshing ? "" : "")
@@ -37,18 +35,18 @@ struct SubjectListView: View {
                 Image(systemName: "plus")
             }
         )
-        .navigationBarTitle("Fächer")
+        .navigationBarTitle("Prüfungen")
         .sheet(isPresented: $addSheetVisible) {
-            SubjectAddiew(isPresented: self.$addSheetVisible, semester: self.semester)
+            ExamAddiew(isPresented: self.$addSheetVisible, subject: self.subject)
                 .environment(\.managedObjectContext, self.managedObjectContext)
         }
     }
     
    func removeClass(at offsets: IndexSet) {
         for index in offsets {
-            let subject = semester.subjectsArray[index]
-            semester.removeFromSubjects(subject)
-            managedObjectContext.delete(subject)
+            let exam = subject.examsArray[index]
+            subject.removeFromExams(exam)
+            managedObjectContext.delete(exam)
         }
         do {
             try managedObjectContext.save()
