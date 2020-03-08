@@ -21,7 +21,6 @@ struct SemesterListView: View {
     private var didSave =  NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
     
     var body: some View {
-        let average = getAverage(semester: semesters)
         return NavigationView {
             VStack {
                 List {
@@ -36,7 +35,7 @@ struct SemesterListView: View {
                     .onDelete(perform: removeSemester)
                 }
                 Text(self.refreshing ? "" : "")
-                Text(average > 0.0 ? String(format: "Durchschnitt: %.2f", average) : "Noch keine Noten eingetragen")
+                GradeAverageView(semesters: semesters)
             }
             
             .navigationBarItems(leading: EditButton(), trailing:
@@ -65,20 +64,4 @@ struct SemesterListView: View {
         }
     }
     
-    func getAverage(semester: FetchedResults<Semester>) -> Float {
-        var sum = Float(0)
-        var count = 0
-        for semester in semesters {
-            for subject in semester.subjectsArray {
-                for exam in subject.examsArray {
-                    sum += exam.grade
-                    count += 1
-                }
-            }
-        }
-        if (count > 0) {
-            return sum / Float(count)
-        }
-        return 0.0
-    }
 }

@@ -26,6 +26,7 @@
 		377D7DED2415A59800CD6582 /* SubjectAddVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DEC2415A59800CD6582 /* SubjectAddVIew.swift */; };
 		377D7DEF2415A66400CD6582 /* ExamListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DEE2415A66400CD6582 /* ExamListView.swift */; };
 		377D7DF12415A75D00CD6582 /* ExamAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DF02415A75D00CD6582 /* ExamAddView.swift */; };
+		377D7DF32415B6BA00CD6582 /* GradeAverageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DF22415B6BA00CD6582 /* GradeAverageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		377D7DEC2415A59800CD6582 /* SubjectAddVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectAddVIew.swift; sourceTree = "<group>"; };
 		377D7DEE2415A66400CD6582 /* ExamListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamListView.swift; sourceTree = "<group>"; };
 		377D7DF02415A75D00CD6582 /* ExamAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamAddView.swift; sourceTree = "<group>"; };
+		377D7DF22415B6BA00CD6582 /* GradeAverageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeAverageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 				377D7DEC2415A59800CD6582 /* SubjectAddVIew.swift */,
 				377D7DEE2415A66400CD6582 /* ExamListView.swift */,
 				377D7DF02415A75D00CD6582 /* ExamAddView.swift */,
+				377D7DF22415B6BA00CD6582 /* GradeAverageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 				377D7DE12415A00D00CD6582 /* Subject+CoreDataClass.swift in Sources */,
 				377D7DE32415A00D00CD6582 /* Semester+CoreDataClass.swift in Sources */,
 				377D7DF12415A75D00CD6582 /* ExamAddView.swift in Sources */,
+				377D7DF32415B6BA00CD6582 /* GradeAverageView.swift in Sources */,
 				377D7DE72415A03E00CD6582 /* SemesterListView.swift in Sources */,
 				377D7DE02415A00D00CD6582 /* Exam+CoreDataProperties.swift in Sources */,
 				377D7DEB2415A48E00CD6582 /* SubjectListView.swift in Sources */,
