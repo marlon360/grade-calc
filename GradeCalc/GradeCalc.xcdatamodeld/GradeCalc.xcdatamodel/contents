@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19B88" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Exam" representedClassName="Exam" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="grade" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="weight" attributeType="Float" defaultValueString="1" usesScalarValueType="YES"/>
+        <relationship name="subject" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subject" inverseName="exams" inverseEntity="Subject"/>
+    </entity>
+    <entity name="Semester" representedClassName="Semester" syncable="YES">
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="subjects" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subject" inverseName="semester" inverseEntity="Subject"/>
+    </entity>
+    <entity name="Subject" representedClassName="Subject" syncable="YES">
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="weight" attributeType="Float" defaultValueString="1" usesScalarValueType="YES"/>
+        <relationship name="exams" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Exam" inverseName="subject" inverseEntity="Exam"/>
+        <relationship name="semester" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Semester" inverseName="subjects" inverseEntity="Semester"/>
+    </entity>
+    <elements>
+        <element name="Semester" positionX="-63" positionY="-18" width="128" height="73"/>
+        <element name="Subject" positionX="-54" positionY="0" width="128" height="103"/>
+        <element name="Exam" positionX="-36" positionY="36" width="128" height="118"/>
+    </elements>
 </model>
