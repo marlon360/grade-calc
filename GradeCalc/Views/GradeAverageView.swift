@@ -16,7 +16,15 @@ struct GradeAverageView: View {
     var body: some View {
         let average = getAverage(semester: semesters)
 
-        return Text(average > 0.0 ? String(format: "Durchschnitt: %.2f", average) : "Noch keine Noten eingetragen")
+        return
+            VStack {
+                Text(average > 0.0 ? String(format: "%.2f", average) : "0")
+                    .font(.title)
+                    .bold()
+                    .padding(20)
+                Text("Aktueller Durchschnitt")
+                    .font(.subheadline)
+            }
     }
     
     

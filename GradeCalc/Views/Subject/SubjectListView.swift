@@ -25,9 +25,13 @@ struct SubjectListView: View {
                 NavigationLink(destination: ExamListView(subject: subject)) {
                     SubjectCellView(subject: subject)
                 }
+                .padding(20)
+                .background(Color.white)
+                .cornerRadius(20)
+                .shadow(color: Color(.lightGray), radius: 1.4, x: 0, y: 1)
+                .listRowBackground(Color(red: 0.92, green: 0.94, blue: 0.97))
             }
             .onDelete(perform: removeClass)
-            Text(self.refreshing ? "" : "")
         }
         
         .navigationBarItems(trailing:
@@ -37,7 +41,7 @@ struct SubjectListView: View {
                 Image(systemName: "plus")
             }
         )
-        .navigationBarTitle("Fächer")
+        .navigationBarTitle(self.refreshing ? "Fächer" : "Fächer")
         .sheet(isPresented: $addSheetVisible) {
             SubjectAddiew(isPresented: self.$addSheetVisible, semester: self.semester)
                 .environment(\.managedObjectContext, self.managedObjectContext)

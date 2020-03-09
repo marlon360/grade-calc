@@ -23,9 +23,13 @@ struct ExamListView: View {
         List {
             ForEach(subject.examsArray, id: \.self) { exam in
                 ExamCellView(exam: exam)
+                .padding(20)
+                .background(Color.white)
+                .cornerRadius(20)
+                .shadow(color: Color(.lightGray), radius: 1.4, x: 0, y: 1)
+                .listRowBackground(Color(red: 0.92, green: 0.94, blue: 0.97))
             }
             .onDelete(perform: removeClass)
-            Text(self.refreshing ? "" : "")
         }
         
         .navigationBarItems(trailing:
@@ -35,7 +39,7 @@ struct ExamListView: View {
                 Image(systemName: "plus")
             }
         )
-        .navigationBarTitle("Prüfungen")
+        .navigationBarTitle(self.refreshing ? "Prüfungen" : "Prüfungen")
         .sheet(isPresented: $addSheetVisible) {
             ExamAddiew(isPresented: self.$addSheetVisible, subject: self.subject)
                 .environment(\.managedObjectContext, self.managedObjectContext)

@@ -22,7 +22,7 @@ struct SemesterListView: View {
     
     init() {
         UITableView.appearance().separatorStyle = .none
-        UITableView.appearance().backgroundColor = UIColor(red: 0.92, green: 0.94, blue: 0.97, alpha: 1)
+        UITableView.appearance().backgroundColor = UIColor(named: "BlueBackground")
     }
     
     var body: some View {
@@ -40,7 +40,7 @@ struct SemesterListView: View {
                         .background(Color.white)
                         .cornerRadius(20)
                         .shadow(color: Color(.lightGray), radius: 1.4, x: 0, y: 1)
-                        .listRowBackground(Color(red: 0.92, green: 0.94, blue: 0.97))
+                        .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
                     }
                     .onDelete(perform: removeSemester)
                 }
