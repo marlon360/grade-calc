@@ -52,6 +52,7 @@ struct SemesterListView: View {
                     self.addSheetVisible = true
                 }) {
                     Image(systemName: "plus")
+                    .imageScale(.large)
                 }
             )
             .navigationBarTitle("Semester")

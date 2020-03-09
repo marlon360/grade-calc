@@ -37,6 +37,7 @@ struct ExamListView: View {
                 self.addSheetVisible = true
             }) {
                 Image(systemName: self.refreshing ? "plus" : "plus")
+                 .imageScale(.large)
             }
         )
             .navigationBarTitle(subject.title ?? "Prüfungen")

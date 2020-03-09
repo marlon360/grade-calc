@@ -39,6 +39,7 @@ struct SubjectListView: View {
                 self.addSheetVisible = true
             }) {
                 Image(systemName: self.refreshing ? "plus" : "plus")
+                .imageScale(.large)
             }
         )
         .navigationBarTitle(semester.title ?? "Fächer")
