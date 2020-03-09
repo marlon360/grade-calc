@@ -39,7 +39,6 @@ struct SemesterCellView: View {
                 count += 1
             }
         }
-        print("Semester Cell Average")
         if (count > 0) {
             return sum / Float(count)
         }

@@ -34,7 +34,6 @@ struct SemesterListView: View {
                             SemesterCellView(semester: semester)
                         }
                         .onReceive(self.didSave) { _ in
-                            print("SAVED")
                             self.refreshing.toggle()
                         }
                         .padding(20)
