@@ -128,18 +128,42 @@
 		377D7DE52415A02000CD6582 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				377D7DE62415A03E00CD6582 /* SemesterListView.swift */,
-				377D7DE82415A2B400CD6582 /* SemesterAddVIew.swift */,
-				377D7DEA2415A48E00CD6582 /* SubjectListView.swift */,
-				377D7DEC2415A59800CD6582 /* SubjectAddVIew.swift */,
-				377D7DEE2415A66400CD6582 /* ExamListView.swift */,
-				377D7DF02415A75D00CD6582 /* ExamAddView.swift */,
+				377D7DFA2416715300CD6582 /* Semester */,
+				377D7DFB2416715C00CD6582 /* Subject */,
+				377D7DFC2416716600CD6582 /* Exam */,
 				377D7DF22415B6BA00CD6582 /* GradeAverageView.swift */,
-				377D7DF42415BB3D00CD6582 /* SemesterCellView.swift */,
-				377D7DF62415BC2600CD6582 /* SubjectCellView.swift */,
-				377D7DF82415BD7F00CD6582 /* ExamCellView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		377D7DFA2416715300CD6582 /* Semester */ = {
+			isa = PBXGroup;
+			children = (
+				377D7DE62415A03E00CD6582 /* SemesterListView.swift */,
+				377D7DE82415A2B400CD6582 /* SemesterAddVIew.swift */,
+				377D7DF42415BB3D00CD6582 /* SemesterCellView.swift */,
+			);
+			path = Semester;
+			sourceTree = "<group>";
+		};
+		377D7DFB2416715C00CD6582 /* Subject */ = {
+			isa = PBXGroup;
+			children = (
+				377D7DEA2415A48E00CD6582 /* SubjectListView.swift */,
+				377D7DEC2415A59800CD6582 /* SubjectAddVIew.swift */,
+				377D7DF62415BC2600CD6582 /* SubjectCellView.swift */,
+			);
+			path = Subject;
+			sourceTree = "<group>";
+		};
+		377D7DFC2416716600CD6582 /* Exam */ = {
+			isa = PBXGroup;
+			children = (
+				377D7DEE2415A66400CD6582 /* ExamListView.swift */,
+				377D7DF02415A75D00CD6582 /* ExamAddView.swift */,
+				377D7DF82415BD7F00CD6582 /* ExamCellView.swift */,
+			);
+			path = Exam;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
