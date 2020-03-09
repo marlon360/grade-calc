@@ -13,14 +13,20 @@ struct SubjectCellView: View {
     
     @State var subject: Subject
     
+    @State var refreshing = false
+    var didSave =  NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
+    
     var body: some View {
         let average = getAverage(subject: subject)
 
         return
             HStack {
                 Text(subject.title ?? "Unknown")
-                Spacer()
+                refreshing ? Spacer() : Spacer()
                 Text(average > 0.0 ? String(format: "%.2f", average) : "")
+            }
+            .onReceive(self.didSave) { _ in
+                self.refreshing.toggle()
             }
     }
     

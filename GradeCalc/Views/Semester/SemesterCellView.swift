@@ -13,14 +13,20 @@ struct SemesterCellView: View {
     
     @State var semester: Semester
     
+    @State var refreshing = false
+    var didSave =  NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
+    
     var body: some View {
         let average = getAverage(semester: semester)
-
+        
         return
             HStack {
                 Text(semester.title ?? "Unknown")
-                Spacer()
+                refreshing ? Spacer() : Spacer()
                 Text(average > 0.0 ? String(format: "%.2f", average) : "")
+            }
+            .onReceive(self.didSave) { _ in
+                self.refreshing.toggle()
             }
     }
     
@@ -33,6 +39,7 @@ struct SemesterCellView: View {
                 count += 1
             }
         }
+        print("Semester Cell Average")
         if (count > 0) {
             return sum / Float(count)
         }

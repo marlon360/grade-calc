@@ -39,6 +39,7 @@ struct GradeAverageView: View {
                 }
             }
         }
+        print("count: \(count), sum: \(sum)")
         if (count > 0) {
             return sum / Float(count)
         }
