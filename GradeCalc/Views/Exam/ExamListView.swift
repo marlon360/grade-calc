@@ -36,10 +36,10 @@ struct ExamListView: View {
             Button(action: {
                 self.addSheetVisible = true
             }) {
-                Image(systemName: "plus")
+                Image(systemName: self.refreshing ? "plus" : "plus")
             }
         )
-        .navigationBarTitle(self.refreshing ? "Prüfungen" : "Prüfungen")
+            .navigationBarTitle(subject.title ?? "Prüfungen")
         .sheet(isPresented: $addSheetVisible) {
             ExamAddiew(isPresented: self.$addSheetVisible, subject: self.subject)
                 .environment(\.managedObjectContext, self.managedObjectContext)

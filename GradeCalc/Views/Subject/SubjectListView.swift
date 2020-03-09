@@ -38,10 +38,10 @@ struct SubjectListView: View {
             Button(action: {
                 self.addSheetVisible = true
             }) {
-                Image(systemName: "plus")
+                Image(systemName: self.refreshing ? "plus" : "plus")
             }
         )
-        .navigationBarTitle(self.refreshing ? "Fächer" : "Fächer")
+        .navigationBarTitle(semester.title ?? "Fächer")
         .sheet(isPresented: $addSheetVisible) {
             SubjectAddiew(isPresented: self.$addSheetVisible, semester: self.semester)
                 .environment(\.managedObjectContext, self.managedObjectContext)
@@ -62,4 +62,5 @@ struct SubjectListView: View {
         self.refreshing.toggle()
     }
 }
+
 
