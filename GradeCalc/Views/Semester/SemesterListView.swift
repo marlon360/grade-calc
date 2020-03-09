@@ -20,8 +20,13 @@ struct SemesterListView: View {
     @State private var refreshing = false
     private var didSave =  NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
     
+    init() {
+        UITableView.appearance().separatorStyle = .none
+        UITableView.appearance().backgroundColor = UIColor(red: 0.92, green: 0.94, blue: 0.97, alpha: 1)
+    }
+    
     var body: some View {
-        return NavigationView {
+        NavigationView {
             VStack {
                 List {
                     ForEach(self.semesters) { semester in
@@ -31,13 +36,17 @@ struct SemesterListView: View {
                         .onReceive(self.didSave) { _ in
                             self.refreshing.toggle()
                         }
+                        .padding(20)
+                        .background(Color.white)
+                        .cornerRadius(20)
+                        .shadow(color: Color(.lightGray), radius: 1.4, x: 0, y: 1)
+                        .listRowBackground(Color(red: 0.92, green: 0.94, blue: 0.97))
                     }
                     .onDelete(perform: removeSemester)
                 }
                 Text(self.refreshing ? "" : "")
                 GradeAverageView(semesters: semesters)
             }
-            
             .navigationBarItems(leading: EditButton(), trailing:
                 Button(action: {
                     self.addSheetVisible = true
