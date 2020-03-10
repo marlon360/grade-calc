@@ -32,6 +32,23 @@ struct SemesterListView: View {
                     ForEach(self.semesters) { semester in
                         NavigationLink(destination: SubjectListView(semester: semester)) {
                             SemesterCellView(semester: semester)
+                            .contextMenu {
+                                Button(action: {
+                                    // change country setting
+                                }) {
+                                    Text("Edit")
+                                    Image(systemName: "pencil")
+                                }
+
+                                Button(action: {
+                                    self.removeSemester(semester: semester)
+                                }) {
+                                    Text("Delete")
+                                        .foregroundColor(.red)
+                                    Image(systemName: "trash")
+                                        .foregroundColor(.red)
+                                }
+                            }
                         }
                         .onReceive(self.didSave) { _ in
                             self.refreshing.toggle()
@@ -65,8 +82,12 @@ struct SemesterListView: View {
    func removeSemester(at offsets: IndexSet) {
         for index in offsets {
             let semester = semesters[index]
-            managedObjectContext.delete(semester)
+            removeSemester(semester: semester)
         }
+    }
+    
+    func removeSemester(semester: Semester) {
+        managedObjectContext.delete(semester)
         do {
             try managedObjectContext.save()
         } catch {
