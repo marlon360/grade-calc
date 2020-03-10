@@ -65,7 +65,7 @@ struct SemesterListView: View {
                     .onDelete(perform: removeSemester)
                 }
             }
-            .navigationBarItems(leading: EditButton(), trailing:
+            .navigationBarItems(trailing:
                 Button(action: {
                     self.addSheetVisible = true
                 }) {
