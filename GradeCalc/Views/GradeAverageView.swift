@@ -17,14 +17,23 @@ struct GradeAverageView: View {
         let average = getAverage(semester: semesters)
 
         return
-            VStack {
-                Text(average > 0.0 ? String(format: "%.2f", average) : "0")
-                    .font(.title)
-                    .bold()
-                    .padding(20)
-                Text("Aktueller Durchschnitt")
-                    .font(.subheadline)
+            ZStack {
+                Rectangle()
+                    .foregroundColor(.clear)
+                    .background(LinearGradient(gradient: Gradient(colors: [.init(red: 0.03, green: 0.62, blue: 0.96), .init(red: 0.69, green: 0.22, blue: 1.0)]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .edgesIgnoringSafeArea(.all)
+                VStack {
+                    Text(average > 0.0 ? String(format: "%.2f", average) : "0")
+                        .font(.system(size: 48))
+                        .bold()
+                        .padding(.top, -20)
+                    Text("Aktueller Durchschnitt")
+                        .font(.system(size: 16))
+                        .padding(.top, 5)
+                }
+                .foregroundColor(Color.white)
             }
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 130, alignment: .trailing)
     }
     
     

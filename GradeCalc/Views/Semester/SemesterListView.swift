@@ -26,6 +26,9 @@ struct SemesterListView: View {
     }
     
     var body: some View {
+        VStack {
+            GradeAverageView(semesters: semesters)
+                .padding(.bottom, -10)
         NavigationView {
             VStack {
                 List {
@@ -61,14 +64,12 @@ struct SemesterListView: View {
                     }
                     .onDelete(perform: removeSemester)
                 }
-                Text(self.refreshing ? "" : "")
-                GradeAverageView(semesters: semesters)
             }
             .navigationBarItems(leading: EditButton(), trailing:
                 Button(action: {
                     self.addSheetVisible = true
                 }) {
-                    Image(systemName: "plus")
+                    Image(systemName:self.refreshing ? "plus" : "plus")
                     .imageScale(.large)
                 }
             )
@@ -76,6 +77,7 @@ struct SemesterListView: View {
         }.sheet(isPresented: $addSheetVisible) {
             SemesterAddiew(isPresented: self.$addSheetVisible)
                 .environment(\.managedObjectContext, self.managedObjectContext)
+        }
         }
     }
     
