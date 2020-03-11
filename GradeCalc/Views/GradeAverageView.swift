@@ -42,10 +42,8 @@ struct GradeAverageView: View {
         var count = 0
         for semester in semesters {
             for subject in semester.subjectsArray {
-                for exam in subject.examsArray {
-                    sum += exam.grade
-                    count += 1
-                }
+                sum += subject.grade
+                count += 1
             }
         }
         if (count > 0) {

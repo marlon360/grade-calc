@@ -1,5 +1,5 @@
 //
-//  SubjectCellView.swift
+//  SemesterCellView.swift
 //  GradeCalc
 //
 //  Created by Marlon Lückert on 09.03.20.
@@ -17,31 +17,17 @@ struct SubjectCellView: View {
     var didSave =  NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
     
     var body: some View {
-        let average = getAverage(subject: subject)
-
-        return
             HStack {
                 Text(subject.title ?? "Unknown")
                 refreshing ? Spacer() : Spacer()
-                Text(average > 0.0 ? String(format: "%.2f", average) : "")
+                Text(String(format: "%.2f", subject.grade))
             }
             .onReceive(self.didSave) { _ in
                 self.refreshing.toggle()
             }
-    }
-    
-    func getAverage(subject: Subject) -> Float {
-        var sum = Float(0)
-        var count = 0
-        for exam in subject.examsArray {
-            sum += exam.grade
-            count += 1
-        }
-        
-        if (count > 0) {
-            return sum / Float(count)
-        }
-        return 0.0
+            .padding(20)
+            .background(Color.white)
+            .cornerRadius(20)
+            .shadow(color: Color(.lightGray), radius: 1.4, x: 0, y: 1)
     }
 }
-

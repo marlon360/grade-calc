@@ -2,7 +2,7 @@
 //  Semester+CoreDataProperties.swift
 //  GradeCalc
 //
-//  Created by Marlon Lückert on 08.03.20.
+//  Created by Marlon Lückert on 10.03.20.
 //  Copyright © 2020 Marlon Lückert. All rights reserved.
 //
 //
@@ -16,7 +16,7 @@ extension Semester {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Semester> {
         return NSFetchRequest<Semester>(entityName: "Semester")
     }
-    
+
     @NSManaged public var title: String?
     @NSManaged public var subjects: NSSet?
     

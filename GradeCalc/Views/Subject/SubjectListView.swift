@@ -1,5 +1,5 @@
 //
-//  SubjectListView.swift
+//  SemesterListView.swift
 //  GradeCalc
 //
 //  Created by Marlon Lückert on 08.03.20.
@@ -11,57 +11,87 @@ import SwiftUI
 
 struct SubjectListView: View {
     
-    @State var semester: Semester
-    
-    @State private var refreshing = false
-        
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    @State private var addSheetVisible = false
+    @FetchRequest(entity: Semester.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Semester.title, ascending: true)]) var semesters: FetchedResults<Semester>
+    
+    @State var addSheetVisible = false
+    
+    @State private var refreshing = false
+    private var didSave =  NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
+    
+    init() {
+        UITableView.appearance().separatorStyle = .none
+        UITableView.appearance().backgroundColor = UIColor(named: "BlueBackground")
+    }
     
     var body: some View {
-        List {
-            ForEach(semester.subjectsArray, id: \.self) { subject in
-                NavigationLink(destination: ExamListView(subject: subject)) {
-                    SubjectCellView(subject: subject)
+        VStack {
+            GradeAverageView(semesters: semesters)
+                .padding(.bottom, -10)
+            VStack {
+                List {
+                    ForEach(self.semesters) { semester in
+                        Text(semester.title ?? "Semester")
+                            .font(.headline)
+                            .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
+                            ForEach(semester.subjectsArray) { subject in
+                                SubjectCellView(subject: subject)
+                                .contextMenu {
+                                    Button(action: {
+                                        // change country setting
+                                    }) {
+                                        Text("Edit")
+                                        Image(systemName: "pencil")
+                                    }
+
+                                    Button(action: {
+                                        self.removeSemester(semester: semester)
+                                    }) {
+                                        Text("Delete")
+                                            .foregroundColor(.red)
+                                        Image(systemName: "trash")
+                                            .foregroundColor(.red)
+                                    }
+                                }
+                            }
+                            .onReceive(self.didSave) { _ in
+                                self.refreshing.toggle()
+                            }
+                        
+                        
+                        .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
+                    }
+                    .onDelete(perform: removeSemester)
                 }
-                .padding(20)
-                .background(Color.white)
-                .cornerRadius(20)
-                .shadow(color: Color(.lightGray), radius: 1.4, x: 0, y: 1)
-                .listRowBackground(Color(red: 0.92, green: 0.94, blue: 0.97))
             }
-            .onDelete(perform: removeClass)
-        }
-        
-        .navigationBarItems(trailing:
             Button(action: {
                 self.addSheetVisible = true
             }) {
-                Image(systemName: self.refreshing ? "plus" : "plus")
+                Image(systemName:self.refreshing ? "plus" : "plus")
                 .imageScale(.large)
+                .padding(20)
             }
-        )
-        .navigationBarTitle(semester.title ?? "Fächer")
-        .sheet(isPresented: $addSheetVisible) {
-            SubjectAddiew(isPresented: self.$addSheetVisible, semester: self.semester)
+        }.sheet(isPresented: $addSheetVisible) {
+            SubjectAddView(isPresented: self.$addSheetVisible)
                 .environment(\.managedObjectContext, self.managedObjectContext)
         }
     }
     
-   func removeClass(at offsets: IndexSet) {
+   func removeSemester(at offsets: IndexSet) {
         for index in offsets {
-            let subject = semester.subjectsArray[index]
-            semester.removeFromSubjects(subject)
-            managedObjectContext.delete(subject)
+            let semester = semesters[index]
+            removeSemester(semester: semester)
         }
+    }
+    
+    func removeSemester(semester: Semester) {
+        managedObjectContext.delete(semester)
         do {
             try managedObjectContext.save()
         } catch {
             print(error)
         }
-        self.refreshing.toggle()
     }
+    
 }
-
-
