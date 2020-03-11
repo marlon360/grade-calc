@@ -12,7 +12,7 @@ import SwiftUI
 struct SubjectAddView: View {
     
     @State private var title = ""
-    @State private var grade = "1"
+    @State private var grade = "1.0"
     @State private var active = true
     @State private var simulation = false
     @State private var simMin = "1.0"
@@ -32,30 +32,42 @@ struct SubjectAddView: View {
     @FetchRequest(entity: Semester.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Semester.title, ascending: true)]) var semesters: FetchedResults<Semester>
     
     @State private var semesterChooser = 0
+    @State private var simulationChooser = 0
     
     var body: some View {
         NavigationView {
             Form {
+                
                 Section() {
                     TextField("Titel", text: self.$title)
                 }
-                                
-                Section() {
-                    VStack(spacing: 0) {
+                
+                Section(header: Text("Note")) {
+                    Picker(selection: $simulationChooser, label: Text("Semester")) {
+                        Text("Eingetragene Note").tag(0)
+                        Text("Simulierte Note").tag(1)
+                    }.pickerStyle(SegmentedPickerStyle())
+                    if (simulationChooser == 0) {
                         HStack {
                             Text("Note:")
                             TextField("Note", text: self.$grade)
+
                         }
-                        .padding(.top, 5)
-//                        .padding(.bottom, 2)
-                       Divider()
-                        .offset(x: 0, y: 10)
-                        
+                    } else {
+                        VStack(spacing: 0) {
+                            HStack {
+                                Text("Beste Note:")
+                                TextField("Note", text: self.$simMin)
+                            }
+                           Divider()
+                            .offset(x: 0, y: 10)
+                        }
+                        HStack {
+                            Text("Schlechteste Note:")
+                            TextField("Note", text: self.$simMax)
+                        }
                     }
-                    HStack {
-                        Text("Gewichtung:")
-                        TextField("Gewichtung", text: self.$weight)
-                    }
+                
                 }
                 
                 Section(header: Text("Gewichtung")) {
@@ -135,7 +147,7 @@ struct SubjectAddView: View {
         let subject = Subject(context: self.managedObjectContext)
         subject.title = self.title
         subject.active = true
-        subject.simulation = false
+        subject.simulation = self.simulationChooser == 1
         subject.simMin = Float(self.simMin) ?? Float(1)
         subject.simMax = Float(self.simMax) ?? Float(4)
         subject.weight = Float(self.weight) ?? Float(1)

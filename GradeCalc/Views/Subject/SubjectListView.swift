@@ -35,7 +35,7 @@ struct SubjectListView: View {
                         Text(semester.title ?? "Semester")
                             .font(.headline)
                             .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
-                            ForEach(semester.subjectsArray) { subject in
+                        ForEach(semester.subjectsArray, id: \.title) { subject in
                                 SubjectCellView(subject: subject)
                                 .contextMenu {
                                     Button(action: {
@@ -46,7 +46,7 @@ struct SubjectListView: View {
                                     }
 
                                     Button(action: {
-                                        self.removeSemester(semester: semester)
+                                        self.removeSubject(subject: subject)
                                     }) {
                                         Text("Delete")
                                             .foregroundColor(.red)
@@ -55,14 +55,15 @@ struct SubjectListView: View {
                                     }
                                 }
                             }
+                            .onDelete{ row in
+                                self.removeSubject(semester: semester, offsets: row)
+                            }
                             .onReceive(self.didSave) { _ in
                                 self.refreshing.toggle()
                             }
-                        
-                        
                         .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
                     }
-                    .onDelete(perform: removeSemester)
+                    
                 }
             }
             Button(action: {
@@ -78,15 +79,20 @@ struct SubjectListView: View {
         }
     }
     
-   func removeSemester(at offsets: IndexSet) {
+    func removeSubject(semester: Semester, offsets: IndexSet) {
         for index in offsets {
-            let semester = semesters[index]
-            removeSemester(semester: semester)
+            let subject = semester.subjectsArray[index]
+            removeSubject(subject: subject)
         }
     }
     
-    func removeSemester(semester: Semester) {
-        managedObjectContext.delete(semester)
+    func removeSubject(subject: Subject) {
+        if let semester = subject.semester {
+            if (semester.subjectsArray.count <= 1) {
+                managedObjectContext.delete(semester)
+            }
+        }
+        managedObjectContext.delete(subject)
         do {
             try managedObjectContext.save()
         } catch {
