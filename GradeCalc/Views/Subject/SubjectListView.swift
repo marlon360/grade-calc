@@ -9,13 +9,20 @@
 import Foundation
 import SwiftUI
 
+enum ActiveSheet {
+   case add, edit
+}
+
 struct SubjectListView: View {
     
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @FetchRequest(entity: Semester.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Semester.title, ascending: true)]) var semesters: FetchedResults<Semester>
     
-    @State var addSheetVisible = false
+    @State var sheetVisible = false
+    @State var activeSheet: ActiveSheet = .add
+    
+    @State var currentSubject: Subject?
     
     @State private var refreshing = false
     private var didSave =  NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
@@ -36,10 +43,19 @@ struct SubjectListView: View {
                             .font(.headline)
                             .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
                         ForEach(semester.subjectsArray, id: \.title) { subject in
+                            Button(action: {
+                                self.currentSubject = subject
+                                self.activeSheet = .edit
+                                self.sheetVisible = true
+                            }){
                                 SubjectCellView(subject: subject)
+                            }
+                            .buttonStyle(BorderlessButtonStyle())
                                 .contextMenu {
                                     Button(action: {
-                                        // change country setting
+                                        self.currentSubject = subject
+                                        self.activeSheet = .edit
+                                        self.sheetVisible = true
                                     }) {
                                         Text("Edit")
                                         Image(systemName: "pencil")
@@ -67,16 +83,25 @@ struct SubjectListView: View {
                 }
             }
             Button(action: {
-                self.addSheetVisible = true
+                self.activeSheet = .add
+                self.sheetVisible = true
             }) {
                 Image(systemName:self.refreshing ? "plus" : "plus")
                 .imageScale(.large)
                 .padding(20)
             }
-        }.sheet(isPresented: $addSheetVisible) {
-            SubjectAddView(isPresented: self.$addSheetVisible)
-                .environment(\.managedObjectContext, self.managedObjectContext)
         }
+        .sheet(isPresented: $sheetVisible) {
+            if self.activeSheet == .edit {
+                SubjectAddView(subject: self.currentSubject,isPresented: self.$sheetVisible)
+                .environment(\.managedObjectContext, self.managedObjectContext)
+            }
+            if self.activeSheet == .add {
+                SubjectAddView(subject:nil,isPresented: self.$sheetVisible)
+                .environment(\.managedObjectContext, self.managedObjectContext)
+            }
+        }
+        
     }
     
     func removeSubject(semester: Semester, offsets: IndexSet) {

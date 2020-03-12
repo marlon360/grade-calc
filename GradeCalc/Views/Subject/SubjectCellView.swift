@@ -27,6 +27,7 @@ struct SubjectCellView: View {
             }
             .padding(20)
             .background(Color.white)
+            .foregroundColor(Color.black)
             .cornerRadius(20)
             .shadow(color: Color(.lightGray), radius: 1.4, x: 0, y: 1)
     }

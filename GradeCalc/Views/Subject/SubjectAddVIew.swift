@@ -11,13 +11,15 @@ import SwiftUI
 
 struct SubjectAddView: View {
     
-    @State private var title = ""
-    @State private var grade = "1.0"
-    @State private var active = true
-    @State private var simulation = false
-    @State private var simMin = "1.0"
-    @State private var simMax = "4.0"
-    @State private var weight = "1.0"
+    @State var subject: Subject?
+    
+    @State var title: String
+    @State private var grade: String
+    @State private var active: Bool
+    @State private var simulation: Bool
+    @State private var simMin: String
+    @State private var simMax: String
+    @State private var weight: String
     
     @State private var selectedSemester = 0
     @State private var gradeCounts = true
@@ -33,6 +35,29 @@ struct SubjectAddView: View {
     
     @State private var semesterChooser = 0
     @State private var simulationChooser = 0
+    
+    init(subject bindedSubject: Subject?, isPresented: Binding<Bool>) {
+        self._subject = State(initialValue: bindedSubject)
+        self._isPresented = isPresented
+        
+        if let subject = bindedSubject {
+            self._title = State(initialValue: subject.title ?? "")
+            self._grade = State(initialValue: String(subject.grade))
+            self._active = State(initialValue: subject.active)
+            self._simulation = State(initialValue: subject.simulation)
+            self._simMin = State(initialValue: String(subject.simMin))
+            self._simMax = State(initialValue: String(subject.simMax))
+            self._weight = State(initialValue: String(subject.weight))
+        } else {
+            self._title = State(initialValue: "")
+            self._grade = State(initialValue: "1.0")
+            self._active = State(initialValue:true)
+            self._simulation = State(initialValue:false)
+            self._simMin = State(initialValue:"1.0")
+            self._simMax = State(initialValue:"4.0")
+            self._weight = State(initialValue:"1.0")
+        }
+    }
     
     var body: some View {
         NavigationView {
@@ -129,13 +154,15 @@ struct SubjectAddView: View {
                         Text("Speichern")
                             .frame(maxWidth: .infinity, alignment: .center)
                     }
+                    .disabled(!self.isSavable())
                 }
                 
             }
-            .navigationBarTitle(Text("Neue Note"), displayMode: .inline)
+            .navigationBarTitle(Text(self.getNavigationTitle()), displayMode: .inline)
             .navigationBarItems(leading:
                 Button(action: {
                     self.isPresented = false
+                    self.subject = nil
                 }) {
                     Text("Abbrechen")
                 }
@@ -143,8 +170,42 @@ struct SubjectAddView: View {
         }
     }
     
+    func getNavigationTitle() -> String {
+        if (self.subject != nil) {
+            return "Fach bearbeiten"
+        } else {
+            return "Neues Fach"
+        }
+    }
+    
+    func isSavable() -> Bool {
+        
+        if (self.title == "") {
+            return false
+        }
+        if (self.grade == "") {
+            return false
+        }
+        if (self.weight == "") {
+            return false
+        }
+        
+        if (self.semesterChooser == 1) {
+            if (self.newSemester == "") {
+                return false
+            }
+        }
+        
+        return true
+    }
+    
     func saveSubject() {
-        let subject = Subject(context: self.managedObjectContext)
+        var subject: Subject
+        if (self.subject != nil) {
+            subject = self.subject!
+        } else {
+            subject = Subject(context: self.managedObjectContext)
+        }
         subject.title = self.title
         subject.active = true
         subject.simulation = self.simulationChooser == 1
