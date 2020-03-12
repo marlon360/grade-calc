@@ -39,9 +39,15 @@ struct SubjectListView: View {
             ZStack(alignment: .bottom) {
                 VStack() {
                     List {
+                        Rectangle()
+                           .frame(height: 10)
+                           .foregroundColor(.clear)
+                           .background(Color(UIColor(named: "BlueBackground") ?? .blue))
+                           .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
                         ForEach(self.semesters) { semester in
                             Text(semester.title ?? "Semester")
                                 .font(.headline)
+                                .padding(.horizontal, 10)
                                 .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
                             ForEach(semester.subjectsArray, id: \.title) { subject in
                                 Button(action: {
@@ -92,19 +98,28 @@ struct SubjectListView: View {
                             .background(Color(UIColor(named: "BlueBackground") ?? .blue))
                             .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
                     }
+                    .environment(\.defaultMinListRowHeight, 0)
+                    .cornerRadius(20)
+                    .padding(.top, -20)
+                    .padding(.bottom, -30)
+                    
                 }
-                Button(action: {
-                    self.activeSheet = .add
-                    self.sheetVisible = true
-                }) {
-                    Image(systemName:self.refreshing ? "plus" : "plus")
-                    .font(.system(size: 24, weight: .bold))
-                    .padding(20)
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        self.activeSheet = .add
+                        self.sheetVisible = true
+                    }) {
+                        Image(systemName:self.refreshing ? "plus" : "plus")
+                        .font(.system(size: 24, weight: .bold))
+                        .padding(20)
+                    }
+                    .foregroundColor(Color.white)
+                    .background(LinearGradient(gradient: Gradient(colors: [.init(red: 0.03, green: 0.62, blue: 0.96), .init(red: 0.69, green: 0.22, blue: 1.0)]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .mask(Circle())
+                    .shadow(color: Color(.lightGray), radius: 2.4, x: 0, y: 1)
                 }
-                .foregroundColor(Color.white)
-                .background(LinearGradient(gradient: Gradient(colors: [.init(red: 0.03, green: 0.62, blue: 0.96), .init(red: 0.69, green: 0.22, blue: 1.0)]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                .mask(Circle())
-                .shadow(color: Color(.lightGray), radius: 2.4, x: 0, y: 1)
+                .padding(.horizontal, 20)
             }
         }
         .sheet(isPresented: $sheetVisible) {
