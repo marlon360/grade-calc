@@ -26,16 +26,16 @@ struct GradeAverageView: View {
                     .edgesIgnoringSafeArea(.all)
                 VStack {
                     Text(average > 0.0 ? String(format: "%.2f", average) : "0")
-                        .font(.system(size: 50))
+                        .font(.system(size: 52))
                         .bold()
                     Text("Aktueller Durchschnitt")
                         .font(.system(size: 16))
-                        .padding(.top, 5)
+                        .padding(.top, 2)
                 }
-                .padding(.top, -34)
+                .padding(.top, -38)
                 .foregroundColor(Color.white)
             }
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 142, alignment: .trailing)
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 154, alignment: .trailing)
     }
     
     

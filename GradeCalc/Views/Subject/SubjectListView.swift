@@ -40,7 +40,7 @@ struct SubjectListView: View {
                 VStack() {
                     List {
                         Rectangle()
-                           .frame(height: 10)
+                           .frame(height: 5)
                            .foregroundColor(.clear)
                            .background(Color(UIColor(named: "BlueBackground") ?? .blue))
                            .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
@@ -48,6 +48,8 @@ struct SubjectListView: View {
                             Text(semester.title ?? "Semester")
                                 .font(.headline)
                                 .padding(.horizontal, 10)
+                                .padding(.top, 10)
+                            .padding(.bottom, 5)
                                 .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
                             ForEach(semester.subjectsArray, id: \.title) { subject in
                                 Button(action: {
