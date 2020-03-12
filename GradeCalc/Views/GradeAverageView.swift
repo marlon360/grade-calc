@@ -41,15 +41,17 @@ struct GradeAverageView: View {
     
     func getAverage(semester: FetchedResults<Semester>) -> Float {
         var sum = Float(0)
-        var count = 0
+        var count: Float = 0.0
         for semester in semesters {
             for subject in semester.subjectsArray {
-                sum += subject.grade
-                count += 1
+                if subject.active {
+                    sum += subject.grade
+                    count += subject.weight
+                }
             }
         }
-        if (count > 0) {
-            return sum / Float(count)
+        if (count > 0.0) {
+            return sum / count
         }
         return 0.0
     }

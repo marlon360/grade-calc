@@ -61,7 +61,13 @@ struct SubjectListView: View {
                                             Text("Edit")
                                             Image(systemName: "pencil")
                                         }
-
+                                        Button(action: {
+                                            self.toggleActiveState(subject: subject)
+                                        }) {
+                                            Text(subject.active ? "Deaktivieren" : "Aktivieren")
+                                            Image(systemName: subject.active ? "xmark" : "checkmark")
+                                        }
+                                        Spacer()
                                         Button(action: {
                                             self.removeSubject(subject: subject)
                                         }) {
@@ -118,6 +124,15 @@ struct SubjectListView: View {
         for index in offsets {
             let subject = semester.subjectsArray[index]
             removeSubject(subject: subject)
+        }
+    }
+    
+    func toggleActiveState(subject: Subject) {
+        subject.active.toggle()
+        do {
+            try managedObjectContext.save()
+        } catch {
+            print(error)
         }
     }
     

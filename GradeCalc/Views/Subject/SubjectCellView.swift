@@ -30,5 +30,6 @@ struct SubjectCellView: View {
             .foregroundColor(Color.black)
             .cornerRadius(20)
             .shadow(color: Color(.lightGray), radius: 1.4, x: 0, y: 1)
+            .opacity(subject.active ? 1.0 : 0.3)
     }
 }
