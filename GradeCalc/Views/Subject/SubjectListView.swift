@@ -36,59 +36,69 @@ struct SubjectListView: View {
         VStack {
             GradeAverageView()
                 .padding(.bottom, -10)
-            VStack {
-                List {
-                    ForEach(self.semesters) { semester in
-                        Text(semester.title ?? "Semester")
-                            .font(.headline)
-                            .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
-                        ForEach(semester.subjectsArray, id: \.title) { subject in
-                            Button(action: {
-                                self.currentSubject = subject
-                                self.activeSheet = .edit
-                                self.sheetVisible = true
-                            }){
-                                SubjectCellView(subject: subject)
-                            }
-                            .buttonStyle(BorderlessButtonStyle())
-                                .contextMenu {
-                                    Button(action: {
-                                        self.currentSubject = subject
-                                        self.activeSheet = .edit
-                                        self.sheetVisible = true
-                                    }) {
-                                        Text("Edit")
-                                        Image(systemName: "pencil")
-                                    }
+            ZStack(alignment: .bottom) {
+                VStack() {
+                    List {
+                        ForEach(self.semesters) { semester in
+                            Text(semester.title ?? "Semester")
+                                .font(.headline)
+                                .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
+                            ForEach(semester.subjectsArray, id: \.title) { subject in
+                                Button(action: {
+                                    self.currentSubject = subject
+                                    self.activeSheet = .edit
+                                    self.sheetVisible = true
+                                }){
+                                    SubjectCellView(subject: subject)
+                                }
+                                .buttonStyle(BorderlessButtonStyle())
+                                    .contextMenu {
+                                        Button(action: {
+                                            self.currentSubject = subject
+                                            self.activeSheet = .edit
+                                            self.sheetVisible = true
+                                        }) {
+                                            Text("Edit")
+                                            Image(systemName: "pencil")
+                                        }
 
-                                    Button(action: {
-                                        self.removeSubject(subject: subject)
-                                    }) {
-                                        Text("Delete")
-                                            .foregroundColor(.red)
-                                        Image(systemName: "trash")
-                                            .foregroundColor(.red)
+                                        Button(action: {
+                                            self.removeSubject(subject: subject)
+                                        }) {
+                                            Text("Delete")
+                                                .foregroundColor(.red)
+                                            Image(systemName: "trash")
+                                                .foregroundColor(.red)
+                                        }
                                     }
                                 }
-                            }
-                            .onDelete{ row in
-                                self.removeSubject(semester: semester, offsets: row)
-                            }
-                            .onReceive(self.didSave) { _ in
-                                self.refreshing.toggle()
-                            }
-                        .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
+                                .onDelete{ row in
+                                    self.removeSubject(semester: semester, offsets: row)
+                                }
+                                .onReceive(self.didSave) { _ in
+                                    self.refreshing.toggle()
+                                }
+                            .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
+                        }
+                        Rectangle()
+                            .frame(height: 60)
+                            .foregroundColor(.clear)
+                            .background(Color(UIColor(named: "BlueBackground") ?? .blue))
+                            .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
                     }
-                    
                 }
-            }
-            Button(action: {
-                self.activeSheet = .add
-                self.sheetVisible = true
-            }) {
-                Image(systemName:self.refreshing ? "plus" : "plus")
-                .imageScale(.large)
-                .padding(20)
+                Button(action: {
+                    self.activeSheet = .add
+                    self.sheetVisible = true
+                }) {
+                    Image(systemName:self.refreshing ? "plus" : "plus")
+                    .font(.system(size: 24, weight: .bold))
+                    .padding(20)
+                }
+                .foregroundColor(Color.white)
+                .background(LinearGradient(gradient: Gradient(colors: [.init(red: 0.03, green: 0.62, blue: 0.96), .init(red: 0.69, green: 0.22, blue: 1.0)]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                .mask(Circle())
+                .shadow(color: Color(.lightGray), radius: 2.4, x: 0, y: 1)
             }
         }
         .sheet(isPresented: $sheetVisible) {
