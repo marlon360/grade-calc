@@ -34,7 +34,7 @@ struct SubjectListView: View {
     
     var body: some View {
         VStack {
-            GradeAverageView(semesters: semesters)
+            GradeAverageView()
                 .padding(.bottom, -10)
             VStack {
                 List {

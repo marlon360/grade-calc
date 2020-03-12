@@ -11,7 +11,9 @@ import SwiftUI
 
 struct GradeAverageView: View {
     
-    @State var semesters: FetchedResults<Semester>
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
+    @FetchRequest(entity: Semester.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Semester.title, ascending: true)]) var semesters: FetchedResults<Semester>
     
     var body: some View {
         let average = getAverage(semester: semesters)
