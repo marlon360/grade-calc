@@ -32,10 +32,10 @@ struct SubjectCellView: View {
                 self.refreshing.toggle()
             }
             .padding(20)
-            .background(Color.white)
-            .foregroundColor(Color.black)
+            .background(Color(UIColor(named: "WhiteBackground") ?? .white))
+            .foregroundColor(Color(UIColor(named: "BlackText") ?? .black))
             .cornerRadius(16)
-            .shadow(color: Color(.lightGray), radius: 1.4, x: 0, y: 1)
+            .shadow(color: Color(.darkGray).opacity(0.6), radius: 1.4, x: 0, y: 1)
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
                     .stroke(subject.simulation ? Color(UIColor(named: "Purple") ?? .purple).opacity(0.6) : Color.white.opacity(0), lineWidth: 2)

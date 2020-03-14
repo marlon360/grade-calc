@@ -26,7 +26,7 @@ struct GradeAverageView: View {
             ZStack {
                 Rectangle()
                     .foregroundColor(.clear)
-                    .background(LinearGradient(gradient: Gradient(colors: [.init(red: 0.03, green: 0.62, blue: 0.96), .init(red: 0.69, green: 0.22, blue: 1.0)]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .background(LinearGradient(gradient: Gradient(colors: [Color(UIColor(named: "GradientColor1") ?? .blue), Color(UIColor(named: "GradientColor2") ?? .purple)]), startPoint: .topLeading, endPoint: .bottomTrailing))
                     .edgesIgnoringSafeArea(.all)
                 ZStack {
                     VStack {

@@ -146,7 +146,7 @@ struct SubjectAddView: View {
                         }
                     }
                     .disabled(!self.gradeCounts)
-                    .foregroundColor(self.gradeCounts ? Color.black : Color.gray)
+                    .foregroundColor(self.gradeCounts ? Color(UIColor(named: "BlackText") ?? .black) : Color.gray)
                 }
                                 
                 Section(header: Text("Semester")) {

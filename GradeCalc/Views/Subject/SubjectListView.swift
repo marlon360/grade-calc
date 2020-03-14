@@ -48,13 +48,12 @@ struct SubjectListView: View {
                     }
                     .padding(30)
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .topLeading)
-                    .background(Color.white)
+                    .background(Color(UIColor(named: "WhiteBackground") ?? .white))
                     .cornerRadius(20)
-                    .shadow(color: Color(.darkGray).opacity(0.6), radius: 4, x: 0, y: 2)
-                    .foregroundColor(Color.black)
+                    .shadow(color: Color(.black).opacity(0.6), radius: 2, x: 0, y: 1)
                     .scaleEffect(self.menuOpen ? 1 : 0.5, anchor: .topTrailing)
                     .padding(.horizontal, 30)
-                                        
+                    .animation(.spring(response: 0.4, dampingFraction: 0.7, blendDuration: 0.2))
                     Spacer()
                 }
                 
@@ -160,9 +159,9 @@ struct SubjectListView: View {
                         .padding(20)
                     }
                     .foregroundColor(Color.white)
-                    .background(LinearGradient(gradient: Gradient(colors: [.init(red: 0.03, green: 0.62, blue: 0.96), .init(red: 0.69, green: 0.22, blue: 1.0)]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .background(LinearGradient(gradient: Gradient(colors: [Color(UIColor(named: "GradientColor1") ?? .blue), Color(UIColor(named: "GradientColor2") ?? .purple)]), startPoint: .topLeading, endPoint: .bottomTrailing))
                     .mask(Circle())
-                    .shadow(color: Color(.lightGray), radius: 2.4, x: 0, y: 1)
+                    .shadow(color: Color(.black).opacity(0.6), radius: 2.4, x: 0, y: 1)
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 10)
