@@ -161,7 +161,7 @@ struct SubjectListView: View {
                     .foregroundColor(Color.white)
                     .background(LinearGradient(gradient: Gradient(colors: [Color(UIColor(named: "GradientColor1") ?? .blue), Color(UIColor(named: "GradientColor2") ?? .purple)]), startPoint: .topLeading, endPoint: .bottomTrailing))
                     .mask(Circle())
-                    .shadow(color: Color(.black).opacity(0.6), radius: 2.4, x: 0, y: 1)
+                    .shadow(color: Color(.black).opacity(0.6), radius: 1.8, x: 0, y: 1)
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 10)
