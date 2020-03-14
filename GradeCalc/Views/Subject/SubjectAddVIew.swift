@@ -21,8 +21,8 @@ struct SubjectAddView: View {
     @State private var simMax: String
     @State private var weight: String
     
-    @State private var selectedSemester = 0
-    @State private var gradeCounts = true
+    @State private var selectedSemester: Int
+    @State private var gradeCounts: Bool
     
     @State private var isShowingNewSemester = false
     @State private var newSemester = ""
@@ -34,7 +34,7 @@ struct SubjectAddView: View {
     @FetchRequest(entity: Semester.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Semester.title, ascending: true)]) var semesters: FetchedResults<Semester>
     
     @State private var semesterChooser = 0
-    @State private var simulationChooser = 0
+    @State private var simulationChooser: Int
     
     init(subject bindedSubject: Subject?, isPresented: Binding<Bool>) {
         self._subject = State(initialValue: bindedSubject)
@@ -45,17 +45,23 @@ struct SubjectAddView: View {
             self._grade = State(initialValue: String(subject.grade))
             self._active = State(initialValue: subject.active)
             self._simulation = State(initialValue: subject.simulation)
+            self._simulationChooser = State(initialValue: subject.simulation ? 1 : 0)
             self._simMin = State(initialValue: String(subject.simMin))
             self._simMax = State(initialValue: String(subject.simMax))
             self._weight = State(initialValue: String(subject.weight))
+            self._selectedSemester = State(initialValue: 0)
+            self._gradeCounts = State(initialValue: subject.weight != 0.0)
         } else {
             self._title = State(initialValue: "")
             self._grade = State(initialValue: "1.0")
             self._active = State(initialValue:true)
             self._simulation = State(initialValue:false)
+            self._simulationChooser = State(initialValue: 0)
             self._simMin = State(initialValue:"1.0")
             self._simMax = State(initialValue:"4.0")
             self._weight = State(initialValue:"1.0")
+            self._selectedSemester = State(initialValue: 0)
+            self._gradeCounts = State(initialValue: true)
         }
     }
     
@@ -134,6 +140,9 @@ struct SubjectAddView: View {
                                     Text(self.semesters[$0].title ?? "Semester").tag($0)
 
                                 }
+                                }
+                            .onAppear() {
+                                self.selectedSemester = self.semesters.lastIndex(of: self.subject!.semester!) ?? self.selectedSemester
                             }
                         } else {
                             Text("Keine Semester vorhanden")
@@ -211,7 +220,11 @@ struct SubjectAddView: View {
         subject.simulation = self.simulationChooser == 1
         subject.simMin = Float(self.simMin) ?? Float(1)
         subject.simMax = Float(self.simMax) ?? Float(4)
-        subject.weight = Float(self.weight) ?? Float(1)
+        if (self.gradeCounts) {
+            subject.weight = Float(self.weight) ?? Float(1)
+        } else {
+             subject.weight = Float(0)
+        }
         subject.grade = Float(self.grade) ?? Float(1)
         
         var semester: Semester
