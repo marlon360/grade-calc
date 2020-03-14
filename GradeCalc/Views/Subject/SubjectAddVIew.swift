@@ -142,7 +142,9 @@ struct SubjectAddView: View {
                                 }
                                 }
                             .onAppear() {
-                                self.selectedSemester = self.semesters.lastIndex(of: self.subject!.semester!) ?? self.selectedSemester
+                                if let subject = self.subject {
+                                    self.selectedSemester = self.semesters.lastIndex(of: subject.semester!) ?? self.selectedSemester
+                                }
                             }
                         } else {
                             Text("Keine Semester vorhanden")
