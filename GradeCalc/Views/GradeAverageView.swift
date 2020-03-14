@@ -21,6 +21,9 @@ struct GradeAverageView: View {
     var body: some View {
         let average = getAverage(semester: semesters)
         let simAverage = getSimulatedAverage(semester: semesters)
+        
+        let averageString: LocalizedStringKey = "current average"
+        let simAverageString: LocalizedStringKey = "simulated average"
 
         return
             ZStack {
@@ -56,7 +59,7 @@ struct GradeAverageView: View {
                         .font(.system(size: 52))
                         .bold()
                     }
-                    Text(!simulation ? "Aktueller Durchschnitt" : "Simulierter Durchschnitt")
+                    Text(!simulation ? averageString :simAverageString)
                         .font(.system(size: 16))
                         .padding(.top, 2)
                     

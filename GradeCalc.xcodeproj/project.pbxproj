@@ -24,6 +24,7 @@
 		37868D3E241802C6000AEBD6 /* Subject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37868D3A241802C6000AEBD6 /* Subject+CoreDataProperties.swift */; };
 		37868D3F241802C6000AEBD6 /* Semester+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37868D3B241802C6000AEBD6 /* Semester+CoreDataClass.swift */; };
 		37868D40241802C6000AEBD6 /* Semester+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37868D3C241802C6000AEBD6 /* Semester+CoreDataProperties.swift */; };
+		37B340F6241D7C8E004EB721 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B340F5241D7C8E004EB721 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		37868D3A241802C6000AEBD6 /* Subject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subject+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		37868D3B241802C6000AEBD6 /* Semester+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Semester+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		37868D3C241802C6000AEBD6 /* Semester+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Semester+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		37B340F5241D7C8E004EB721 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				377D7DD22415959200CD6582 /* Info.plist */,
 				377D7DC52415959000CD6582 /* GradeCalc.xcdatamodeld */,
 				377D7DCC2415959200CD6582 /* Preview Content */,
+				37B340F5241D7C8E004EB721 /* Localizable.strings */,
 			);
 			path = GradeCalc;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				377D7DD12415959200CD6582 /* LaunchScreen.storyboard in Resources */,
+				37B340F6241D7C8E004EB721 /* Localizable.strings in Resources */,
 				377D7DCE2415959200CD6582 /* Preview Assets.xcassets in Resources */,
 				377D7DCB2415959200CD6582 /* Assets.xcassets in Resources */,
 			);
@@ -238,6 +242,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -298,6 +303,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
