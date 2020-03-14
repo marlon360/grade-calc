@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  GradeCalc
+
+  Created by Marlon Lückert on 14.03.20.
+  Copyright © 2020 Marlon Lückert. All rights reserved.
+*/
+
+"grade" = "Note";
+"current average" = "Aktueller Durchschnitt";
+"simulated average" = "Simulierter Durchschnitt";
