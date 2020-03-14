@@ -29,6 +29,8 @@ struct SubjectListView: View {
     
     @State var menuOpen = false
     
+    @State var simulation = false
+    
     init() {
         UITableView.appearance().separatorStyle = .none
         UITableView.appearance().backgroundColor = UIColor(named: "BlueBackground")
@@ -37,32 +39,34 @@ struct SubjectListView: View {
     var body: some View {
         ZStack {
             ZStack {
-                Rectangle()
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-                    .foregroundColor(.clear)
-                    .background(Color(UIColor(named: "DarkBlueBackground") ?? .black))
-                    .edgesIgnoringSafeArea(.all)
                 VStack {
                     VStack {
-                        Text("Einstellungen")
-                        Text("Diagramme")
+                        Toggle(isOn: self.$simulation) {
+                            Text("Simulation")
+                        }
+                        
                     }
-                    .foregroundColor(Color.white)
                     .padding(30)
+                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .topLeading)
+                    .background(Color.white)
+                    .cornerRadius(20)
+                    .shadow(color: Color(.darkGray).opacity(0.6), radius: 4, x: 0, y: 2)
+                    .foregroundColor(Color.black)
+                    .scaleEffect(self.menuOpen ? 1 : 0.5, anchor: .topTrailing)
+                    .padding(.horizontal, 30)
+                                        
                     Spacer()
                 }
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-                .padding(.leading, 50)
-                
                 
             }
             .zIndex(2)
-            .offset(x: self.menuOpen ? -50 : -UIScreen.main.bounds.width)
+            .opacity(self.menuOpen ? 1 : 0)
+            .offset(y: 50)
             Rectangle()
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
                 .foregroundColor(.clear)
-                .background(Color.black)
-                .opacity(0.5)
+                .background(Color(UIColor(named: "DarkBlueBackground") ?? .blue))
+                .opacity(0.8)
                 .edgesIgnoringSafeArea(.all)
                 .zIndex(1)
                 .opacity(self.menuOpen ? 1 : 0)
@@ -73,7 +77,7 @@ struct SubjectListView: View {
                 }
             
         VStack {
-            GradeAverageView(menuOpen: self.$menuOpen)
+            GradeAverageView(menuOpen: self.$menuOpen, simulation: self.$simulation)
                 .padding(.bottom, -10)
             ZStack(alignment: .bottom) {
                 VStack() {
@@ -134,7 +138,7 @@ struct SubjectListView: View {
                             .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
                         }
                         Rectangle()
-                            .frame(height: 60)
+                            .frame(height: 100)
                             .foregroundColor(.clear)
                             .background(Color(UIColor(named: "BlueBackground") ?? .blue))
                             .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))

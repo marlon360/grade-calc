@@ -20,7 +20,13 @@ struct SubjectCellView: View {
             HStack {
                 Text(subject.title ?? "Unknown")
                 refreshing ? Spacer() : Spacer()
-                Text(String(format: "%.2f", subject.grade))
+                if (subject.simulation) {
+                    Text(String(format: "%.2f - %.2f", subject.simMin, subject.simMax))
+                    .bold()
+                } else {
+                    Text(String(format: "%.2f", subject.grade))
+                    .bold()
+                }
             }
             .onReceive(self.didSave) { _ in
                 self.refreshing.toggle()
@@ -30,6 +36,10 @@ struct SubjectCellView: View {
             .foregroundColor(Color.black)
             .cornerRadius(16)
             .shadow(color: Color(.lightGray), radius: 1.4, x: 0, y: 1)
-            .opacity(subject.active ? 1.0 : 0.3)
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(subject.simulation ? Color(UIColor(named: "Purple") ?? .purple).opacity(0.6) : Color.white.opacity(0), lineWidth: 2)
+            )
+                .opacity(subject.active ? 1.0 : 0.3)
     }
 }

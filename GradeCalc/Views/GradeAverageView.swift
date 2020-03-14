@@ -16,9 +16,11 @@ struct GradeAverageView: View {
     @FetchRequest(entity: Semester.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Semester.title, ascending: true)]) var semesters: FetchedResults<Semester>
     
     @Binding var menuOpen: Bool
+    @Binding var simulation: Bool
     
     var body: some View {
         let average = getAverage(semester: semesters)
+        let simAverage = getSimulatedAverage(semester: semesters)
 
         return
             ZStack {
@@ -29,25 +31,32 @@ struct GradeAverageView: View {
                 ZStack {
                     VStack {
                         HStack {
+                            Spacer()
                             Button(action: {
                                 withAnimation {
                                     self.menuOpen.toggle()
                                 }
                             }) {
-                                Image("Menu")
+                                Image(systemName: "ellipsis")
+                                .font(.system(size: 32, weight: .bold))
                             }
                             .foregroundColor(.white)
-                            Spacer()
                         }
                         .padding(30)
                         Spacer()
                     }
-                    .padding(.top, -10)
+                    .padding(.top, -15)
                 VStack {
+                    if(simulation) {
+                        Text(simAverage.0 > 0.0 ? String(format: "%.2f - %.2f", simAverage.0, simAverage.1) : "0")
+                        .font(.system(size: 42))
+                        .bold()
+                    } else {
                     Text(average > 0.0 ? String(format: "%.2f", average) : "0")
                         .font(.system(size: 52))
                         .bold()
-                    Text("Aktueller Durchschnitt")
+                    }
+                    Text(!simulation ? "Aktueller Durchschnitt" : "Simulierter Durchschnitt")
                         .font(.system(size: 16))
                         .padding(.top, 2)
                     
@@ -65,8 +74,8 @@ struct GradeAverageView: View {
         var count: Float = 0.0
         for semester in semesters {
             for subject in semester.subjectsArray {
-                if subject.active {
-                    sum += subject.grade
+                if subject.active && !subject.simulation {
+                    sum += subject.grade * subject.weight
                     count += subject.weight
                 }
             }
@@ -75,5 +84,29 @@ struct GradeAverageView: View {
             return sum / count
         }
         return 0.0
+    }
+    
+    func getSimulatedAverage(semester: FetchedResults<Semester>) -> (Float, Float) {
+        var sumMin = Float(0)
+        var sumMax = Float(0)
+        var count: Float = 0.0
+        for semester in semesters {
+            for subject in semester.subjectsArray {
+                if subject.active {
+                    if (subject.simulation) {
+                        sumMin += subject.simMin * subject.weight
+                        sumMax += subject.simMax * subject.weight
+                    } else {
+                        sumMin += subject.grade * subject.weight
+                        sumMax += subject.grade * subject.weight
+                    }
+                    count += subject.weight
+                }
+            }
+        }
+        if (count > 0.0) {
+            return (sumMin / count, sumMax / count)
+        }
+        return (0.0, 0.0)
     }
 }
