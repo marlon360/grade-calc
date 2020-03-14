@@ -27,14 +27,53 @@ struct SubjectListView: View {
     @State private var refreshing = false
     private var didSave =  NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
     
+    @State var menuOpen = false
+    
     init() {
         UITableView.appearance().separatorStyle = .none
         UITableView.appearance().backgroundColor = UIColor(named: "BlueBackground")
     }
     
     var body: some View {
+        ZStack {
+            ZStack {
+                Rectangle()
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+                    .foregroundColor(.clear)
+                    .background(Color(UIColor(named: "DarkBlueBackground") ?? .black))
+                    .edgesIgnoringSafeArea(.all)
+                VStack {
+                    VStack {
+                        Text("Einstellungen")
+                        Text("Diagramme")
+                    }
+                    .foregroundColor(Color.white)
+                    .padding(30)
+                    Spacer()
+                }
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+                .padding(.leading, 50)
+                
+                
+            }
+            .zIndex(2)
+            .offset(x: self.menuOpen ? -50 : -UIScreen.main.bounds.width)
+            Rectangle()
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+                .foregroundColor(.clear)
+                .background(Color.black)
+                .opacity(0.5)
+                .edgesIgnoringSafeArea(.all)
+                .zIndex(1)
+                .opacity(self.menuOpen ? 1 : 0)
+                .onTapGesture {
+                    withAnimation {
+                        self.menuOpen = false
+                    }
+                }
+            
         VStack {
-            GradeAverageView()
+            GradeAverageView(menuOpen: self.$menuOpen)
                 .padding(.bottom, -10)
             ZStack(alignment: .bottom) {
                 VStack() {
@@ -122,6 +161,7 @@ struct SubjectListView: View {
                     .shadow(color: Color(.lightGray), radius: 2.4, x: 0, y: 1)
                 }
                 .padding(.horizontal, 20)
+                .padding(.bottom, 10)
             }
         }
         .sheet(isPresented: $sheetVisible) {
@@ -133,6 +173,7 @@ struct SubjectListView: View {
                 SubjectAddView(subject:nil,isPresented: self.$sheetVisible)
                 .environment(\.managedObjectContext, self.managedObjectContext)
             }
+        }
         }
         
     }

@@ -15,6 +15,8 @@ struct GradeAverageView: View {
     
     @FetchRequest(entity: Semester.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Semester.title, ascending: true)]) var semesters: FetchedResults<Semester>
     
+    @Binding var menuOpen: Bool
+    
     var body: some View {
         let average = getAverage(semester: semesters)
 
@@ -24,6 +26,23 @@ struct GradeAverageView: View {
                     .foregroundColor(.clear)
                     .background(LinearGradient(gradient: Gradient(colors: [.init(red: 0.03, green: 0.62, blue: 0.96), .init(red: 0.69, green: 0.22, blue: 1.0)]), startPoint: .topLeading, endPoint: .bottomTrailing))
                     .edgesIgnoringSafeArea(.all)
+                ZStack {
+                    VStack {
+                        HStack {
+                            Button(action: {
+                                withAnimation {
+                                    self.menuOpen.toggle()
+                                }
+                            }) {
+                                Image("Menu")
+                            }
+                            .foregroundColor(.white)
+                            Spacer()
+                        }
+                        .padding(30)
+                        Spacer()
+                    }
+                    .padding(.top, -10)
                 VStack {
                     Text(average > 0.0 ? String(format: "%.2f", average) : "0")
                         .font(.system(size: 52))
@@ -31,9 +50,11 @@ struct GradeAverageView: View {
                     Text("Aktueller Durchschnitt")
                         .font(.system(size: 16))
                         .padding(.top, 2)
+                    
                 }
                 .padding(.top, -38)
                 .foregroundColor(Color.white)
+                }
             }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 154, alignment: .trailing)
     }
