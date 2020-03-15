@@ -9,6 +9,12 @@
 import Foundation
 import SwiftUI
 
+extension Float {
+    var clean: String {
+       return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
+    }
+}
+
 struct SubjectCellView: View {
     
     @State var subject: Subject
@@ -19,6 +25,16 @@ struct SubjectCellView: View {
     var body: some View {
             HStack {
                 Text(subject.title ?? "Unknown")
+                if (subject.weight != 1.0) {
+                    Text(subject.weight.clean + "x")
+                        .bold()
+                        .font(.footnote)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 6)
+                        .background(Color(UIColor(named: "Orange") ?? .orange))
+                        .cornerRadius(10)
+                        .foregroundColor(.white)
+                }
                 refreshing ? Spacer() : Spacer()
                 if (subject.simulation) {
                     Text(String(format: "%.2f - %.2f", subject.simMin, subject.simMax))
