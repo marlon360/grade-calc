@@ -79,6 +79,15 @@ struct SubjectListView: View {
             GradeAverageView(menuOpen: self.$menuOpen, simulation: self.$simulation)
                 .padding(.bottom, -10)
             ZStack(alignment: .bottom) {
+                if semesters.count == 0 {
+                    VStack {
+                        Spacer()
+                        Text("no grades")
+                            .multilineTextAlignment(.center)
+                        Spacer()
+                    }
+                    .zIndex(2)
+                }
                 VStack() {
                     List {
                         Rectangle()
