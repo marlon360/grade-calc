@@ -41,10 +41,10 @@
 		377D7DE82415A2B400CD6582 /* SubjectAddVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectAddVIew.swift; sourceTree = "<group>"; };
 		377D7DF22415B6BA00CD6582 /* GradeAverageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeAverageView.swift; sourceTree = "<group>"; };
 		377D7DF42415BB3D00CD6582 /* SubjectCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectCellView.swift; sourceTree = "<group>"; };
-		37868D39241802C6000AEBD6 /* Subject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subject+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		37868D3A241802C6000AEBD6 /* Subject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subject+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		37868D3B241802C6000AEBD6 /* Semester+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Semester+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		37868D3C241802C6000AEBD6 /* Semester+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Semester+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		37868D39241802C6000AEBD6 /* Subject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Subject+CoreDataClass.swift"; path = "GradeCalc/CoreData/Subject+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		37868D3A241802C6000AEBD6 /* Subject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Subject+CoreDataProperties.swift"; path = "GradeCalc/CoreData/Subject+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		37868D3B241802C6000AEBD6 /* Semester+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Semester+CoreDataClass.swift"; path = "GradeCalc/CoreData/Semester+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		37868D3C241802C6000AEBD6 /* Semester+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Semester+CoreDataProperties.swift"; path = "GradeCalc/CoreData/Semester+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		37B340FD241D804C004EB721 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		37B340FE241D809B004EB721 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
