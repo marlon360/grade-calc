@@ -33,7 +33,7 @@ struct SubjectCellView: View {
             }
             .padding(20)
             .background(Color(UIColor(named: "WhiteBackground") ?? .white))
-            .foregroundColor(Color(UIColor(named: "BlackText") ?? .black))
+            .foregroundColor(.primary)
             .cornerRadius(16)
             .shadow(color: Color(.darkGray).opacity(0.6), radius: 1.4, x: 0, y: 1)
             .overlay(
