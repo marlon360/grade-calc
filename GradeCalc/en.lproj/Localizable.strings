@@ -20,6 +20,7 @@
 "new subject" = "New subject";
 "edit" = "Edit";
 "save" = "Save";
+"delete" = "Delete";
 "cancel" = "Cancel";
 "activate" = "Activate";
 "deactivate" = "Deactivate";
