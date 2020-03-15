@@ -203,7 +203,14 @@ struct SubjectAddView: View {
                     self.subject = nil
                 }) {
                     Text("cancel")
-                }
+                }, trailing:
+                Button(action: {
+                    self.saveSubject()
+                    self.isPresented = false
+                    self.subject = nil
+                }) {
+                    Text("save")
+                }.disabled(!self.isSavable())
             )
             .padding(.bottom, keyboard.currentHeight)
             .edgesIgnoringSafeArea(.bottom)
