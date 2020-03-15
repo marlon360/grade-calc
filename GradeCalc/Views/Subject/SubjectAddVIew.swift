@@ -97,50 +97,50 @@ struct SubjectAddView: View {
             Form {
                 
                 Section() {
-                    TextField("Titel", text: self.$title)
+                    TextField("title", text: self.$title)
                 }
                 
-                Section(header: Text("Note")) {
-                    Picker(selection: $simulationChooser, label: Text("Semester")) {
-                        Text("Eingetragene Note").tag(0)
-                        Text("Simulierte Note").tag(1)
+                Section(header: Text("grade")) {
+                    Picker(selection: $simulationChooser, label: Text("semester")) {
+                        Text("final grade").tag(0)
+                        Text("simulated grade").tag(1)
                     }.pickerStyle(SegmentedPickerStyle())
                     if (simulationChooser == 0) {
                         HStack {
-                            Text("Note:")
-                            TextField("Note", text: self.$grade)
+                            Text("grade:")
+                            TextField("grade", text: self.$grade)
 
                         }
                     } else {
                         VStack(spacing: 0) {
                             HStack {
-                                Text("Beste Note:")
-                                TextField("Note", text: self.$simMin)
+                                Text("best grade:")
+                                TextField("grade", text: self.$simMin)
                             }
                            Divider()
                             .offset(x: 0, y: 10)
                         }
                         HStack {
-                            Text("Schlechteste Note:")
-                            TextField("Note", text: self.$simMax)
+                            Text("worst grade:")
+                            TextField("grade", text: self.$simMax)
                         }
                     }
                 
                 }
                 
-                Section(header: Text("Gewichtung")) {
+                Section(header: Text("weight")) {
                     VStack(spacing: 0) {
                         Toggle(isOn: self.$gradeCounts) {
-                            Text("Note zählt")
+                            Text("grade counts")
                         }
                        Divider()
                         .offset(x: 0, y: 10)
                         
                     }
                     HStack {
-                        Text("Gewichtung:")
+                        Text("weight:")
                         if (self.gradeCounts) {
-                            TextField("Gewichtung", text: self.$weight)
+                            TextField("weight", text: self.$weight)
                         } else {
                             Text("0")
                         }
@@ -149,10 +149,10 @@ struct SubjectAddView: View {
                     .foregroundColor(self.gradeCounts ? Color(UIColor(named: "BlackText") ?? .black) : Color.gray)
                 }
                                 
-                Section(header: Text("Semester")) {
-                    Picker(selection: $semesterChooser, label: Text("Semester")) {
-                        Text("Semester wählen").tag(0)
-                        Text("Neues Semester").tag(1)
+                Section(header: Text("semester")) {
+                    Picker(selection: $semesterChooser, label: Text("semester")) {
+                        Text("choose semester").tag(0)
+                        Text("create semester").tag(1)
                     }.pickerStyle(SegmentedPickerStyle())
                         .onAppear {
                             if (self.semesters.count == 0) {
@@ -162,9 +162,9 @@ struct SubjectAddView: View {
                     
                     if (semesterChooser == 0) {
                         if (semesters.count > 0) {
-                            Picker(selection: $selectedSemester, label: Text("Semester")) {
+                            Picker(selection: $selectedSemester, label: Text("semester")) {
                                 ForEach(0 ..< semesters.count) {
-                                    Text(self.semesters[$0].title ?? "Semester").tag($0)
+                                    Text(self.semesters[$0].title ?? "semester").tag($0)
 
                                 }
                                 }
@@ -174,12 +174,12 @@ struct SubjectAddView: View {
                                 }
                             }
                         } else {
-                            Text("Keine Semester vorhanden")
+                            Text("no semester")
                         }
                     }
                     
                     if (semesterChooser == 1) {
-                        TextField("Neues Semester", text: self.$newSemester)
+                        TextField("semester", text: self.$newSemester)
                     }
                     
                 }
@@ -189,7 +189,7 @@ struct SubjectAddView: View {
                         self.saveSubject()
                         self.isPresented = false
                     }) {
-                        Text("Speichern")
+                        Text("save")
                             .frame(maxWidth: .infinity, alignment: .center)
                     }
                     .disabled(!self.isSavable())
@@ -202,7 +202,7 @@ struct SubjectAddView: View {
                     self.isPresented = false
                     self.subject = nil
                 }) {
-                    Text("Abbrechen")
+                    Text("cancel")
                 }
             )
             .padding(.bottom, keyboard.currentHeight)
@@ -211,11 +211,11 @@ struct SubjectAddView: View {
         }
     }
     
-    func getNavigationTitle() -> String {
+    func getNavigationTitle() -> LocalizedStringKey {
         if (self.subject != nil) {
-            return "Fach bearbeiten"
+            return "edit subject"
         } else {
-            return "Neues Fach"
+            return "new subject"
         }
     }
     

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3774F74D2418120B0093C4A1 /* TextFieldAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3774F74C2418120B0093C4A1 /* TextFieldAlert.swift */; };
 		3774F74F2419158B0093C4A1 /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3774F74E2419158B0093C4A1 /* HostingController.swift */; };
 		377D7DC22415959000CD6582 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DC12415959000CD6582 /* AppDelegate.swift */; };
 		377D7DC42415959000CD6582 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D7DC32415959000CD6582 /* SceneDelegate.swift */; };
@@ -28,7 +27,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3774F74C2418120B0093C4A1 /* TextFieldAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAlert.swift; sourceTree = "<group>"; };
 		3774F74E2419158B0093C4A1 /* HostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
 		377D7DBE2415959000CD6582 /* GradeCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GradeCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		377D7DC12415959000CD6582 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,7 +118,6 @@
 			children = (
 				377D7DFA2416715300CD6582 /* Subject */,
 				377D7DF22415B6BA00CD6582 /* GradeAverageView.swift */,
-				3774F74C2418120B0093C4A1 /* TextFieldAlert.swift */,
 				3774F74E2419158B0093C4A1 /* HostingController.swift */,
 			);
 			path = Views;
@@ -222,7 +219,6 @@
 				37868D40241802C6000AEBD6 /* Semester+CoreDataProperties.swift in Sources */,
 				37868D3E241802C6000AEBD6 /* Subject+CoreDataProperties.swift in Sources */,
 				377D7DC42415959000CD6582 /* SceneDelegate.swift in Sources */,
-				3774F74D2418120B0093C4A1 /* TextFieldAlert.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

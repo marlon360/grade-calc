@@ -87,7 +87,7 @@ struct SubjectListView: View {
                            .background(Color(UIColor(named: "BlueBackground") ?? .blue))
                            .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
                         ForEach(self.semesters) { semester in
-                            Text(semester.title ?? "Semester")
+                            Text(semester.title ?? "semester")
                                 .font(.headline)
                                 .padding(.horizontal, 10)
                                 .padding(.top, 10)
@@ -108,20 +108,20 @@ struct SubjectListView: View {
                                             self.activeSheet = .edit
                                             self.sheetVisible = true
                                         }) {
-                                            Text("Edit")
+                                            Text("edit")
                                             Image(systemName: "pencil")
                                         }
                                         Button(action: {
                                             self.toggleActiveState(subject: subject)
                                         }) {
-                                            Text(subject.active ? "Deaktivieren" : "Aktivieren")
+                                            Text(subject.active ? "deactivate" : "activate")
                                             Image(systemName: subject.active ? "xmark" : "checkmark")
                                         }
                                         Spacer()
                                         Button(action: {
                                             self.removeSubject(subject: subject)
                                         }) {
-                                            Text("Delete")
+                                            Text("delete")
                                                 .foregroundColor(.red)
                                             Image(systemName: "trash")
                                                 .foregroundColor(.red)
