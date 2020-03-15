@@ -109,6 +109,7 @@ struct SubjectAddView: View {
                         HStack {
                             Text("grade:")
                             TextField("grade", text: self.$grade)
+                                .keyboardType(.decimalPad)
 
                         }
                     } else {
@@ -116,6 +117,7 @@ struct SubjectAddView: View {
                             HStack {
                                 Text("best grade:")
                                 TextField("grade", text: self.$simMin)
+                                    .keyboardType(.decimalPad)
                             }
                            Divider()
                             .offset(x: 0, y: 10)
@@ -123,6 +125,7 @@ struct SubjectAddView: View {
                         HStack {
                             Text("worst grade:")
                             TextField("grade", text: self.$simMax)
+                                .keyboardType(.decimalPad)
                         }
                     }
                 
@@ -141,6 +144,7 @@ struct SubjectAddView: View {
                         Text("weight:")
                         if (self.gradeCounts) {
                             TextField("weight", text: self.$weight)
+                                .keyboardType(.decimalPad)
                         } else {
                             Text("0")
                         }
@@ -200,14 +204,12 @@ struct SubjectAddView: View {
             .navigationBarItems(leading:
                 Button(action: {
                     self.isPresented = false
-                    self.subject = nil
                 }) {
                     Text("cancel")
                 }, trailing:
                 Button(action: {
                     self.saveSubject()
                     self.isPresented = false
-                    self.subject = nil
                 }) {
                     Text("save")
                 }.disabled(!self.isSavable())
@@ -251,21 +253,25 @@ struct SubjectAddView: View {
         var subject: Subject
         if (self.subject != nil) {
             subject = self.subject!
+            print(subject)
         } else {
+            print("new subject")
             subject = Subject(context: self.managedObjectContext)
         }
         subject.title = self.title
         subject.active = true
         subject.simulation = self.simulationChooser == 1
-        subject.simMin = Float(self.simMin) ?? Float(1)
-        subject.simMax = Float(self.simMax) ?? Float(4)
+
+        subject.simMin = self.simMin.floatValue ?? 1
+        subject.simMax = self.simMax.floatValue ?? 4
+        
         if (self.gradeCounts) {
-            subject.weight = Float(self.weight) ?? Float(1)
+            subject.weight = self.weight.floatValue ?? 1
         } else {
              subject.weight = Float(0)
         }
-        subject.grade = Float(self.grade) ?? Float(1)
-        
+        subject.grade = self.grade.floatValue ?? 1
+
         var semester: Semester
         if (self.semesterChooser == 0) {
             semester = self.semesters[self.selectedSemester]
@@ -287,4 +293,14 @@ struct SubjectAddView: View {
         
     }
     
+}
+
+extension String {
+    var floatValue: Float? {
+        if (self.contains(",")) {
+            return NumberFormatter().number(from: self)?.floatValue
+        } else {
+            return Float(self)
+        }
+    }
 }
