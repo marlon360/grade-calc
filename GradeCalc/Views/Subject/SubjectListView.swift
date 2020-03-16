@@ -102,7 +102,7 @@ struct SubjectListView: View {
                                 .padding(.top, 10)
                             .padding(.bottom, 5)
                                 .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
-                            ForEach(semester.subjectsArray, id: \.title) { subject in
+                            ForEach(semester.subjectsArray, id: \.self) { subject in
                                 Button(action: {
                                     self.currentSubject = subject
                                     self.activeSheet = .edit
