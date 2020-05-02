@@ -5,3 +5,8 @@
 ![Banner](Media/Banner.png)
 
 [Product Hunt](https://www.producthunt.com/posts/gradecalc-gpa-calculator)
+
+## Copyright
+
+This project has no license. That means you are not allowed to sell or distribute this app.
+All rights reserved.
