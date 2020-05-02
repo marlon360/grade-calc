@@ -6,6 +6,10 @@
 
 [Product Hunt](https://www.producthunt.com/posts/gradecalc-gpa-calculator)
 
+## Support
+
+If you want to support the development of this app, feel free to [sponsor](https://github.com/sponsors/marlon360) me or [buy me a coffee](https://ko-fi.com/marlon360).
+
 ## Copyright
 
 This project has no license. That means you are not allowed to sell or distribute this app.
