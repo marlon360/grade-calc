@@ -31,6 +31,10 @@ struct SubjectListView: View {
     
     @State var simulation = false
     
+    @State var showsSemesterRenameAlert = false
+    @State var selectedSemester: Semester?
+
+    
     init() {
         UITableView.appearance().separatorStyle = .none
         UITableView.appearance().backgroundColor = UIColor(named: "BlueBackground")
@@ -96,12 +100,16 @@ struct SubjectListView: View {
                            .background(Color(UIColor(named: "BlueBackground") ?? .blue))
                            .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
                         ForEach(self.semesters) { semester in
-                            Text(semester.title ?? "semester")
+                            Button (semester.title ?? "semester") {
+                                self.selectedSemester = semester
+                                self.showsSemesterRenameAlert = true
+                            }
                                 .font(.headline)
                                 .padding(.horizontal, 10)
                                 .padding(.top, 10)
-                            .padding(.bottom, 5)
+                                .padding(.bottom, 5)
                                 .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
+     
                             ForEach(semester.subjectsArray, id: \.self) { subject in
                                 Button(action: {
                                     self.currentSubject = subject
@@ -175,6 +183,13 @@ struct SubjectListView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 10)
             }
+            .alert(isPresented: self.$showsSemesterRenameAlert, TextAlert(title: "Rename \(self.selectedSemester?.title ?? "Semester")", action: {
+                if let newTitle = $0, let semester = self.selectedSemester {
+                    self.renameSemester(semester: semester, title: newTitle)
+                } else {
+                    print("Cannot save")
+                }
+            }))
         }
         .sheet(isPresented: $sheetVisible) {
             if self.activeSheet == .edit {
@@ -199,6 +214,15 @@ struct SubjectListView: View {
     
     func toggleActiveState(subject: Subject) {
         subject.active.toggle()
+        do {
+            try managedObjectContext.save()
+        } catch {
+            print(error)
+        }
+    }
+    
+    func renameSemester(semester: Semester, title: String) {
+        semester.title = title;
         do {
             try managedObjectContext.save()
         } catch {
