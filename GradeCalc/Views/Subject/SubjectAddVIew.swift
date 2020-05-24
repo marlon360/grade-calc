@@ -93,7 +93,17 @@ struct SubjectAddView: View {
     }
     
     var body: some View {
-        NavigationView {
+        
+        let selectedSemesterPicker = Binding<Int>(get: {
+            return self.selectedSemester
+        }, set: {
+            self.selectedSemester = $0
+            if let subject = self.subject {
+                subject.semester = self.semesters[self.selectedSemester]
+            }
+        })
+        
+        return NavigationView {
             Form {
                 
                 Section() {
@@ -164,14 +174,14 @@ struct SubjectAddView: View {
                             }
                         }
                     
+                    // choose semester is selected in segemebted control
                     if (semesterChooser == 0) {
                         if (semesters.count > 0) {
-                            Picker(selection: $selectedSemester, label: Text("semester")) {
+                            Picker(selection: selectedSemesterPicker, label: Text("semester")) {
                                 ForEach(0 ..< semesters.count) {
                                     Text(self.semesters[$0].title ?? "semester").tag($0)
-
                                 }
-                                }
+                            }
                             .onAppear() {
                                 if let subject = self.subject {
                                     self.selectedSemester = self.semesters.lastIndex(of: subject.semester!) ?? self.selectedSemester
@@ -182,6 +192,7 @@ struct SubjectAddView: View {
                         }
                     }
                     
+                    // create semester is selected in segmented control
                     if (semesterChooser == 1) {
                         TextField("semester", text: self.$newSemester)
                     }
@@ -281,8 +292,13 @@ struct SubjectAddView: View {
         }
         
         subject.semester = semester
-        
         semester.addToSubjects(subject)
+        
+        for semester in self.semesters {
+            if semester.subjectsArray.count < 1 {
+                managedObjectContext.delete(semester)
+            }
+        }
         
         do {
             print(subject.grade)
