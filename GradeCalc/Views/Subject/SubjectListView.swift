@@ -183,7 +183,7 @@ struct SubjectListView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 10)
             }
-            .alert(isPresented: self.$showsSemesterRenameAlert, TextAlert(title: "Rename \(self.selectedSemester?.title ?? "Semester")", action: {
+            .alert(isPresented: self.$showsSemesterRenameAlert, TextAlert(title: NSLocalizedString("rename", comment: "rename"), placeholder: self.selectedSemester?.title ?? "Semester", accept: NSLocalizedString("save", comment: "save"), cancel: NSLocalizedString("cancel", comment: "cancel"), action: {
                 if let newTitle = $0, let semester = self.selectedSemester {
                     self.renameSemester(semester: semester, title: newTitle)
                 } else {
