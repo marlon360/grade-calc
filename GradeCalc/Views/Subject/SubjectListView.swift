@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 enum Sheet {
-   case add, edit
+    case add, edit
 }
 
 struct SubjectListView: View {
@@ -18,10 +18,10 @@ struct SubjectListView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @FetchRequest(entity: Semester.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Semester.title, ascending: true)]) var semesters: FetchedResults<Semester>
-
+    
     
     class SheetMananger: ObservableObject{
-            
+        
         @Published var showSheet = false
         @Published var whichSheet: Sheet = .add
         @Published var subject: Subject? = nil
@@ -38,7 +38,7 @@ struct SubjectListView: View {
     
     @State var showsSemesterRenameAlert = false
     @State var selectedSemester: Semester?
-
+    
     
     init() {
         UITableView.appearance().separatorStyle = .none
@@ -84,128 +84,128 @@ struct SubjectListView: View {
                     }
                 }
             
-        VStack {
-            GradeAverageView(menuOpen: self.$menuOpen, simulation: self.$simulation)
-                .padding(.bottom, -10)
-            ZStack(alignment: .bottom) {
-                if semesters.count == 0 {
-                    VStack {
-                        Spacer()
-                        Text("no grades")
-                            .multilineTextAlignment(.center)
-                        Spacer()
+            VStack {
+                GradeAverageView(menuOpen: self.$menuOpen, simulation: self.$simulation)
+                ZStack(alignment: .bottom) {
+                    if semesters.count == 0 {
+                        VStack {
+                            Spacer()
+                            Text("no grades")
+                                .multilineTextAlignment(.center)
+                            Spacer()
+                        }
+                        .zIndex(2)
                     }
-                    .zIndex(2)
-                }
-                VStack() {
-                    List {
-                        Rectangle()
-                           .frame(height: 5)
-                           .foregroundColor(.clear)
-                           .background(Color(UIColor(named: "BlueBackground") ?? .blue))
-                           .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
-                        ForEach(self.semesters) { semester in
-                            Button (semester.title ?? "semester") {
-                                self.selectedSemester = semester
-                                self.showsSemesterRenameAlert = true
-                            }
-                                .font(.headline)
-                                .padding(.horizontal, 10)
-                                .padding(.top, 10)
-                                .padding(.bottom, 5)
-                                .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
-     
-                            ForEach(semester.subjectsArray, id: \.self) { subject in
-                                Button(action: {
-                                    self.sheetManager.subject = subject
-                                    self.sheetManager.whichSheet = .edit
-                                    self.sheetManager.showSheet = true
-                                }){
-                                    SubjectCellView(subject: subject)
-                                }
-                                .buttonStyle(BorderlessButtonStyle())
-                                    .contextMenu {
+                    VStack() {
+                        ZStack {
+                            List {
+                                ForEach(self.semesters) { semester in
+                                    Button (semester.title ?? "semester") {
+                                        self.selectedSemester = semester
+                                        self.showsSemesterRenameAlert = true
+                                    }
+                                    .font(.headline)
+                                    .foregroundColor(.primary)
+                                    .padding(.horizontal, 10)
+                                    .padding(.top, 10)
+                                    .padding(.bottom, 5)
+                                    .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
+                                    .hideRowSeparator()
+                                    
+                                    ForEach(semester.subjectsArray, id: \.self) { subject in
                                         Button(action: {
                                             self.sheetManager.subject = subject
                                             self.sheetManager.whichSheet = .edit
                                             self.sheetManager.showSheet = true
-                                        }) {
-                                            Text("edit")
-                                            Image(systemName: "pencil")
+                                        }){
+                                            SubjectCellView(subject: subject)
                                         }
-                                        Button(action: {
-                                            self.toggleActiveState(subject: subject)
-                                        }) {
-                                            Text(subject.active ? "deactivate" : "activate")
-                                            Image(systemName: subject.active ? "xmark" : "checkmark")
-                                        }
-                                        Spacer()
-                                        Button(action: {
-                                            self.removeSubject(subject: subject)
-                                        }) {
-                                            Text("delete")
-                                                .foregroundColor(.red)
-                                            Image(systemName: "trash")
-                                                .foregroundColor(.red)
+                                        .buttonStyle(BorderlessButtonStyle())
+                                        .contextMenu {
+                                            Button(action: {
+                                                self.sheetManager.subject = subject
+                                                self.sheetManager.whichSheet = .edit
+                                                self.sheetManager.showSheet = true
+                                            }) {
+                                                Text("edit")
+                                                Image(systemName: "pencil")
+                                            }
+                                            Button(action: {
+                                                self.toggleActiveState(subject: subject)
+                                            }) {
+                                                Text(subject.active ? "deactivate" : "activate")
+                                                Image(systemName: subject.active ? "xmark" : "checkmark")
+                                            }
+                                            Spacer()
+                                            Button(action: {
+                                                self.removeSubject(subject: subject)
+                                            }) {
+                                                Text("delete")
+                                                    .foregroundColor(.red)
+                                                Image(systemName: "trash")
+                                                    .foregroundColor(.red)
+                                            }
                                         }
                                     }
+                                    .onDelete{ row in
+                                        self.removeSubject(semester: semester, offsets: row)
+                                    }
+                                    .onReceive(self.didSave) { _ in
+                                        self.refreshing.toggle()
+                                    }
+                                    .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
+                                    .hideRowSeparator()
                                 }
-                                .onDelete{ row in
-                                    self.removeSubject(semester: semester, offsets: row)
-                                }
-                                .onReceive(self.didSave) { _ in
-                                    self.refreshing.toggle()
-                                }
-                            .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
+                                Rectangle()
+                                    .frame(height: 100)
+                                    .foregroundColor(.clear)
+                                    .background(Color(UIColor(named: "BlueBackground") ?? .blue))
+                                    .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
+                            }
+                            .padding(.top, -20)
                         }
-                        Rectangle()
-                            .frame(height: 100)
-                            .foregroundColor(.clear)
-                            .background(Color(UIColor(named: "BlueBackground") ?? .blue))
-                            .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
+                        .environment(\.defaultMinListRowHeight, 0)
+                        .cornerRadius(20)
+                        .padding(.top, -20)
+                        .padding(.bottom, -30)
+                        
                     }
-                    .environment(\.defaultMinListRowHeight, 0)
-                    .cornerRadius(20)
-                    .padding(.top, -20)
-                    .padding(.bottom, -30)
-                    
-                }
-                HStack {
-                    Spacer()
-                    Button(action: {
-                        self.sheetManager.whichSheet = .add
-                        self.sheetManager.showSheet = true
-                    }) {
-                        Image(systemName:self.refreshing ? "plus" : "plus")
-                        .font(.system(size: 24, weight: .bold))
-                        .padding(20)
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            self.sheetManager.whichSheet = .add
+                            self.sheetManager.showSheet = true
+                        }) {
+                            Image(systemName:self.refreshing ? "plus" : "plus")
+                                .font(.system(size: 24, weight: .bold))
+                                .padding(20)
+                        }
+                        .foregroundColor(Color.white)
+                        .background(LinearGradient(gradient: Gradient(colors: [Color(UIColor(named: "GradientColor1") ?? .blue), Color(UIColor(named: "GradientColor2") ?? .purple)]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                        .mask(Circle())
+                        .shadow(color: Color(.black).opacity(0.6), radius: 1.8, x: 0, y: 1)
                     }
-                    .foregroundColor(Color.white)
-                    .background(LinearGradient(gradient: Gradient(colors: [Color(UIColor(named: "GradientColor1") ?? .blue), Color(UIColor(named: "GradientColor2") ?? .purple)]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                    .mask(Circle())
-                    .shadow(color: Color(.black).opacity(0.6), radius: 1.8, x: 0, y: 1)
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 10)
                 }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 10)
+                .alert(isPresented: self.$showsSemesterRenameAlert, TextAlert(title: NSLocalizedString("rename", comment: "rename"), placeholder: self.selectedSemester?.title ?? "Semester", accept: NSLocalizedString("save", comment: "save"), cancel: NSLocalizedString("cancel", comment: "cancel"), action: {
+                    if let newTitle = $0, let semester = self.selectedSemester {
+                        self.renameSemester(semester: semester, title: newTitle)
+                    } else {
+                        print("Cannot save")
+                    }
+                }))
             }
-            .alert(isPresented: self.$showsSemesterRenameAlert, TextAlert(title: NSLocalizedString("rename", comment: "rename"), placeholder: self.selectedSemester?.title ?? "Semester", accept: NSLocalizedString("save", comment: "save"), cancel: NSLocalizedString("cancel", comment: "cancel"), action: {
-                if let newTitle = $0, let semester = self.selectedSemester {
-                    self.renameSemester(semester: semester, title: newTitle)
-                } else {
-                    print("Cannot save")
+            .sheet(isPresented: self.$sheetManager.showSheet) {
+                if self.sheetManager.whichSheet == .edit {
+                    SubjectAddView(subject: self.sheetManager.subject,isPresented: self.$sheetManager.showSheet)
+                        .environment(\.managedObjectContext, self.managedObjectContext)
                 }
-            }))
-        }
-        .sheet(isPresented: self.$sheetManager.showSheet) {
-            if self.sheetManager.whichSheet == .edit {
-                SubjectAddView(subject: self.sheetManager.subject,isPresented: self.$sheetManager.showSheet)
-                .environment(\.managedObjectContext, self.managedObjectContext)
+                if self.sheetManager.whichSheet == .add {
+                    SubjectAddView(subject:nil,isPresented: self.$sheetManager.showSheet)
+                        .environment(\.managedObjectContext, self.managedObjectContext)
+                }
             }
-            if self.sheetManager.whichSheet == .add {
-                SubjectAddView(subject:nil,isPresented: self.$sheetManager.showSheet)
-                .environment(\.managedObjectContext, self.managedObjectContext)
-            }
-        }
         }
         
     }

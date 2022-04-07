@@ -48,6 +48,7 @@ struct SubjectCellView: View {
                 self.refreshing.toggle()
             }
             .padding(20)
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
             .background(Color(UIColor(named: "WhiteBackground") ?? .white))
             .foregroundColor(.primary)
             .cornerRadius(16)

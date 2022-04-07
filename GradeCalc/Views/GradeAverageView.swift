@@ -48,7 +48,7 @@ struct GradeAverageView: View {
                         .padding(30)
                         Spacer()
                     }
-                    .padding(.top, -15)
+                    .padding(.top, -5)
                 VStack {
                     if(simulation) {
                         Text(simAverage.0 > 0.0 ? String(format: "%.2f - %.2f", simAverage.0, simAverage.1) : "0")
@@ -61,10 +61,10 @@ struct GradeAverageView: View {
                     }
                     Text(!simulation ? averageString :simAverageString)
                         .font(.system(size: 16))
-                        .padding(.top, 2)
+                        .padding(.top, -28)
                     
                 }
-                .padding(.top, -38)
+                .padding(.top, -10)
                 .foregroundColor(Color.white)
                 }
             }
