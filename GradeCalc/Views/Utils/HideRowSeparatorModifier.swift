@@ -15,7 +15,7 @@ struct HideRowSeparatorModifier: ViewModifier {
         if #available(iOS 15.0, *) {
             content.listRowSeparator(.hidden)
         } else {
-            // Fallback on earlier versions
+            content
         }
     }
 }

@@ -39,8 +39,12 @@ struct SubjectListView: View {
     @State var showsSemesterRenameAlert = false
     @State var selectedSemester: Semester?
     
+    var topPadding: CGFloat = 0;
     
     init() {
+        if #available(iOS 15.0, *) {
+            topPadding = -20
+        }
         UITableView.appearance().separatorStyle = .none
         UITableView.appearance().backgroundColor = UIColor(named: "BlueBackground")
     }
@@ -139,7 +143,7 @@ struct SubjectListView: View {
                                     .background(Color(UIColor(named: "BlueBackground") ?? .blue))
                                     .listRowBackground(Color(UIColor(named: "BlueBackground") ?? .blue))
                             }
-                            .padding(.top, -20)
+                            .padding(.top, topPadding)
                         }
                         .environment(\.defaultMinListRowHeight, 0)
                         .cornerRadius(20)
