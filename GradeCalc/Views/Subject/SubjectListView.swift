@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-enum ActiveSheet {
+enum Sheet {
    case add, edit
 }
 
@@ -18,11 +18,16 @@ struct SubjectListView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @FetchRequest(entity: Semester.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Semester.title, ascending: true)]) var semesters: FetchedResults<Semester>
+
     
-    @State var sheetVisible = false
-    @State var activeSheet: ActiveSheet = .add
+    class SheetMananger: ObservableObject{
+            
+        @Published var showSheet = false
+        @Published var whichSheet: Sheet = .add
+        @Published var subject: Subject? = nil
+    }
     
-    @State var currentSubject: Subject?
+    @StateObject var sheetManager = SheetMananger()
     
     @State private var refreshing = false
     private var didSave =  NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
@@ -112,18 +117,18 @@ struct SubjectListView: View {
      
                             ForEach(semester.subjectsArray, id: \.self) { subject in
                                 Button(action: {
-                                    self.currentSubject = subject
-                                    self.activeSheet = .edit
-                                    self.sheetVisible = true
+                                    self.sheetManager.subject = subject
+                                    self.sheetManager.whichSheet = .edit
+                                    self.sheetManager.showSheet = true
                                 }){
                                     SubjectCellView(subject: subject)
                                 }
                                 .buttonStyle(BorderlessButtonStyle())
                                     .contextMenu {
                                         Button(action: {
-                                            self.currentSubject = subject
-                                            self.activeSheet = .edit
-                                            self.sheetVisible = true
+                                            self.sheetManager.subject = subject
+                                            self.sheetManager.whichSheet = .edit
+                                            self.sheetManager.showSheet = true
                                         }) {
                                             Text("edit")
                                             Image(systemName: "pencil")
@@ -168,8 +173,8 @@ struct SubjectListView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        self.activeSheet = .add
-                        self.sheetVisible = true
+                        self.sheetManager.whichSheet = .add
+                        self.sheetManager.showSheet = true
                     }) {
                         Image(systemName:self.refreshing ? "plus" : "plus")
                         .font(.system(size: 24, weight: .bold))
@@ -191,13 +196,13 @@ struct SubjectListView: View {
                 }
             }))
         }
-        .sheet(isPresented: $sheetVisible) {
-            if self.activeSheet == .edit {
-                SubjectAddView(subject: self.currentSubject,isPresented: self.$sheetVisible)
+        .sheet(isPresented: self.$sheetManager.showSheet) {
+            if self.sheetManager.whichSheet == .edit {
+                SubjectAddView(subject: self.sheetManager.subject,isPresented: self.$sheetManager.showSheet)
                 .environment(\.managedObjectContext, self.managedObjectContext)
             }
-            if self.activeSheet == .add {
-                SubjectAddView(subject:nil,isPresented: self.$sheetVisible)
+            if self.sheetManager.whichSheet == .add {
+                SubjectAddView(subject:nil,isPresented: self.$sheetManager.showSheet)
                 .environment(\.managedObjectContext, self.managedObjectContext)
             }
         }
