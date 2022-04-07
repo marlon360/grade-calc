@@ -24,51 +24,44 @@ struct GradeAverageView: View {
         
         let averageString: LocalizedStringKey = "current average"
         let simAverageString: LocalizedStringKey = "simulated average"
-
-        return
+        
+        return (
             ZStack {
                 Rectangle()
                     .foregroundColor(.clear)
                     .background(LinearGradient(gradient: Gradient(colors: [Color(UIColor(named: "GradientColor1") ?? .blue), Color(UIColor(named: "GradientColor2") ?? .purple)]), startPoint: .topLeading, endPoint: .bottomTrailing))
                     .edgesIgnoringSafeArea(.all)
-                ZStack {
+                TabView {
                     VStack {
-                        HStack {
-                            Spacer()
-                            Button(action: {
-                                withAnimation {
-                                    self.menuOpen.toggle()
-                                }
-                            }) {
-                                Image(systemName: "ellipsis")
-                                .font(.system(size: 32, weight: .bold))
-                            }
+                        Text(average > 0.0 ? String(format: "%.2f", average) : "0")
+                            .font(.system(size: 52))
                             .foregroundColor(.white)
-                        }
-                        .padding(30)
-                        Spacer()
+                            .bold()
+                        Text(averageString)
+                            .font(.system(size: 16))
+                            .foregroundColor(.white)
+                            .padding(.bottom, 6)
                     }
-                    .padding(.top, -5)
-                VStack {
-                    if(simulation) {
+                    .padding(.bottom, 20)
+                    VStack {
                         Text(simAverage.0 > 0.0 ? String(format: "%.2f - %.2f", simAverage.0, simAverage.1) : "0")
-                        .font(.system(size: 42))
-                        .bold()
-                    } else {
-                    Text(average > 0.0 ? String(format: "%.2f", average) : "0")
-                        .font(.system(size: 52))
-                        .bold()
+                            .font(.system(size: 52))
+                            .foregroundColor(.white)
+                            .bold()
+                        
+                        Text(simAverageString)
+                            .font(.system(size: 16))
+                            .foregroundColor(.white)
+                            .padding(.bottom, 6)
                     }
-                    Text(!simulation ? averageString :simAverageString)
-                        .font(.system(size: 16))
-                        .padding(.top, -28)
-                    
+                    .padding(.bottom, 20)
                 }
-                .padding(.top, -10)
-                .foregroundColor(Color.white)
-                }
+                .tabViewStyle(.page(indexDisplayMode: .always))
+                .padding(.top, -20)
+                .padding(.bottom, 30)
             }
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 154, alignment: .trailing)
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 184, alignment: .trailing)
+        )
     }
     
     

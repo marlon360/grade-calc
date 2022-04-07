@@ -47,29 +47,6 @@ struct SubjectListView: View {
     
     var body: some View {
         ZStack {
-            ZStack {
-                VStack {
-                    VStack {
-                        Toggle(isOn: self.$simulation) {
-                            Text("Simulation")
-                        }
-                        
-                    }
-                    .padding(30)
-                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .topLeading)
-                    .background(Color(UIColor(named: "WhiteBackground") ?? .white))
-                    .cornerRadius(20)
-                    .shadow(color: Color(.black).opacity(0.6), radius: 2, x: 0, y: 1)
-                    .scaleEffect(self.menuOpen ? 1 : 0.5, anchor: .topTrailing)
-                    .padding(.horizontal, 30)
-                    .animation(.spring(response: 0.4, dampingFraction: 0.7, blendDuration: 0.2))
-                    Spacer()
-                }
-                
-            }
-            .zIndex(2)
-            .opacity(self.menuOpen ? 1 : 0)
-            .offset(y: 50)
             Rectangle()
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
                 .foregroundColor(.clear)
@@ -166,7 +143,7 @@ struct SubjectListView: View {
                         }
                         .environment(\.defaultMinListRowHeight, 0)
                         .cornerRadius(20)
-                        .padding(.top, -20)
+                        .padding(.top, -30)
                         .padding(.bottom, -30)
                         
                     }
